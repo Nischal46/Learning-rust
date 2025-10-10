@@ -1,3 +1,5 @@
+mod utils;
+
 fn main(){
     //NOTE:
     let fn_call = passing_reference();
@@ -15,6 +17,11 @@ fn main(){
     let s3 = &s1;
 
     println!("s3: {}", s3);
+
+    utils::greeting_user("Nischal");
+
+    let employee1 = utils::Employee::new("Nischal".to_string(), "nischal@gmail.com".to_string());
+    employee1.display_details();
 
 }
 
