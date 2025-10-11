@@ -1,6 +1,12 @@
+//use std::process::Command;
+use std::fs;
+use std::path::Path;
+use std::io;
+use std::io::prelude::*;
+
 mod utils;
 
-fn main(){
+fn main() -> io::Result<()> {
     //NOTE:
     let fn_call = passing_reference();
     println!("accepting ownership pass by fn by returning---- {}", fn_call);
@@ -23,6 +29,37 @@ fn main(){
     let employee1 = utils::Employee::new("Nischal".to_string(), "nischal@gmail.com".to_string());
     employee1.display_details();
 
+    if Path::new("/dev/video0").exists() {
+        println!("Camera detected");
+    } else {
+        println!("Camera not detected");
+    }
+
+    //NOTE: Reading of the hardware of the system
+
+    //for entry in fs::read_dir("/dev")? {
+    //    let entry = entry?;
+    //    let file_name = entry.file_name();
+    //    let name = file_name.to_string_lossy();
+    //
+    //    println!("Logging {:?}", entry);
+    //}
+
+    let f = fs::File::open("mytext.txt")?;
+
+    println!(" Reading of the file: {:?}", f);
+    
+    //let reader = io::BufReader::new(f);
+    //
+    //for line in reader.lines() {
+    //    println!("{}", line?);
+    //}
+    
+    let contents = include_str!("../mytext.txt");
+
+    println!("Reading of the content of the my text file {:?}", contents);
+
+    Ok(())
 }
 
 fn passing_reference() -> String {
