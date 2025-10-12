@@ -5,6 +5,7 @@ use std::io;
 use std::io::prelude::*;
 
 mod utils;
+mod vector;
 
 fn main() -> io::Result<()> {
     //NOTE:
@@ -58,6 +59,11 @@ fn main() -> io::Result<()> {
     let contents = include_str!("../mytext.txt");
 
     println!("Reading of the content of the my text file {:?}", contents);
+
+    let num_array = [3, 4, 6, 7];
+
+    let vector_concept = vector::vector_array(num_array);
+    //println!("Logging of the vector, {:?}", vector_concept);
 
     Ok(())
 }
