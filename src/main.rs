@@ -6,6 +6,7 @@ use std::io::prelude::*;
 
 mod utils;
 mod vector;
+mod errorhandling;
 
 fn main() -> io::Result<()> {
     //NOTE:
@@ -64,6 +65,8 @@ fn main() -> io::Result<()> {
 
     let vector_concept = vector::vector_array(num_array);
     //println!("Logging of the vector, {:?}", vector_concept);
+    
+    let error_fn = errorhandling::error_concept();
 
     Ok(())
 }
