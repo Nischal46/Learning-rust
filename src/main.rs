@@ -39,6 +39,14 @@ fn main(){
 
     emp1.get_details();
 
+    let traffic_light_status = TrafficLight::Green;
+
+    match traffic_light_status {
+        TrafficLight::Red=>println!("Stop vehicles. Red light"),
+        TrafficLight::Green=>println!("Green Light. You can move"),
+        TrafficLight::Yellow=>println!("Hold on.Yellow Light")
+    }
+
 }
 
 fn accept_ownership(num: i32){
@@ -91,4 +99,13 @@ impl Employee {
     fn get_details(&self){
         println!("Hello {}. Your email: {}, and experience: {} yrs and your role {}", self.name, self.email, self.experience, self.role);
     }
+}
+
+//NOTE: Implementation of enum concept
+
+#[derive(Debug)]
+enum TrafficLight {
+    Red,
+    Yellow,
+    Green
 }
