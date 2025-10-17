@@ -1,12 +1,11 @@
 mod closures;
-mod loopmodules;
+fn main(){
 
-fn main() {
     //Differences between functions and procedures
 
     //functions - that return value
 
-    let fn_return_val = function_example(3, 2);
+    let fn_return_val = function_example(3,2);
     println!("Value getting from fn return, {}", fn_return_val);
 
     //procedure - same as function but it didnot return value
@@ -21,30 +20,18 @@ fn main() {
     let s1 = String::from("String allocated in heap");
     let s2 = &s1; //we had passed ownership to new variable
 
-    println!(
-        "Printing value of String in reverse order as it supports by macro as Strings are -- {1}, --{0}",
-        s1, s2
-    );
+    println!("Printing value of String in reverse order as it supports by macro as Strings are -- {1}, --{0}", s1, s2);
 
     let s3: &str = "Hello";
     let s4 = s3; //this makes a new string slice in stack as its computation is cheap as compared to
 
-    println!(
-        "Printing value of string slices and they are {} and {}",
-        s3, s4
-    );
+    println!("Printing value of string slices and they are {} and {}", s3, s4);
 
     let product1 = Product::new("Laptop".to_string(), "Dell".to_string(), 68000);
     println!("Product1: {:#?}", product1);
     println!("{}", product1.details());
 
-    closures::main_modules::closure_fn_concept();
-    closures::database_modules::database_connection("https:dbconn".to_string());
-    closures::hepler_modules::checking_voting_eligiblitiy();
-
-    loopmodules::loop_modules::while_loop_concept();
-    loopmodules::loop_modules::for_loop_concept();
-
+    closures::closure_fn_concept();
 
     //At first, all the declared variables are immutable we can replace by mut
 }
@@ -53,7 +40,7 @@ fn function_example(num1: i8, num2: i8) -> i8 {
     num1 + num2
 }
 
-fn procedure_example() {
+fn procedure_example(){
     println!("Hey I am procedure. but i didnot return value, but i can accept parameter as well");
 }
 
@@ -61,7 +48,7 @@ fn procedure_example() {
 struct Product {
     title: String,
     brand: String,
-    price: i64,
+    price: i64
 }
 
 impl Product {
@@ -69,7 +56,7 @@ impl Product {
         Self {
             title,
             brand,
-            price,
+            price
         }
     }
 

@@ -1,6 +1,4 @@
 mod closures;
-mod loopmodules;
-
 fn main() {
     //Differences between functions and procedures
 
@@ -39,12 +37,7 @@ fn main() {
     println!("{}", product1.details());
 
     closures::main_modules::closure_fn_concept();
-    closures::database_modules::database_connection("https:dbconn".to_string());
-    closures::hepler_modules::checking_voting_eligiblitiy();
-
-    loopmodules::loop_modules::while_loop_concept();
-    loopmodules::loop_modules::for_loop_concept();
-
+    closures::database_modules::
 
     //At first, all the declared variables are immutable we can replace by mut
 }
