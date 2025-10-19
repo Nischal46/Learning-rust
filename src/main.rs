@@ -1,59 +1,58 @@
-mod helpers;
-mod closures;
+//enum with match Control flow operator
 
-#[derive(Debug)]
-enum IpAddressKind {
-    v4,
-    v6
+#[allow(dead_code)]
+enum BikeTypes {
+    Bajaj,
+    Ktm,
+    Yamaha,
+    Hero,
 }
 
-#[derive(Debug)]
-struct IpAddress {
-    kind: IpAddressKind,
-    address: String
+fn print_bike_info() {
+    println!(
+        "
+    Press 1. Bajaj
+    Press 2. KTM
+    Press 3. Hero,
+    Press 4. Hero
+    "
+    );
 }
-
-//unit struct
-#[derive(Debug)]
-struct Developer;
 
 fn main() {
-    // let mut user_array: Vec<helpers::helpers_modules::UsersDetails> = Vec::new();
-    // let mut count = 1u8;
-    // loop {
-    //     let result = helpers::helpers_modules::user_input();
-    //     // println!("Displaying user input :-> Username: {} || Useremail: {}", result.0, result.1);
+    println!("Select Bike: ");
+    print_bike_info();
 
-    //     let details = helpers::helpers_modules::UsersDetails {
-    //         name: result.0,
-    //         email: result.1,
-    //     };
-    //     details.add();
+    println!("Please select above one: ");
 
-    //     user_array.push(details);
+    let mut user_select = &mut String::from("");
+    std::io::stdin().read_line(user_select).unwrap();
 
-    //     if count == 3 {
-    //         break;
-    //     }
+    let user_choice = user_select.replace("\n", "").parse::<i32>().unwrap();
 
-    //     count += 1;
-    // }
-    // println!(
-    //     "Displaying from returning of struct from other modules, {:#?}",
-    //     user_array
-    // );
+    println!("user selects: {}", user_select);
 
-    closures::closures_modules::closure_concept();
+    //Incase if we donot have value previous we should not have mut keyword
+    let result;
+    match user_choice {
+        1 => result = user_choice_bike(BikeTypes::Bajaj),
+        2 => result = user_choice_bike(BikeTypes::Ktm),
+        3 => result = user_choice_bike(BikeTypes::Hero),
+        4 => result = user_choice_bike(BikeTypes::Yamaha),
+        _ => result = "Invalid typed".to_string(),
+    }
 
-    let IpAddress1 = IpAddress {
-        kind: IpAddressKind::v4,
-        address: String::from("192.168.0.1")
-    };
+    println!("User selected bike: {}", result);
 
-    println!("Logging of ip address, {:#?}", IpAddress1);
-
-    //unit struct just used as signal
-    let dev1 = Developer;
-    println!("{:#?}", dev1)
+    // let user_choice_bike = user_choice_bike(BikeTypes::Bajaj);
+    // println!("Selected Bike: {}", user_choice_bike);
 }
- 
+
+fn user_choice_bike(bike: BikeTypes) -> String {
+    match bike {
+        BikeTypes::Bajaj => "pulsar220".to_string(),
+        BikeTypes::Ktm => "duke 200".to_string(),
+        BikeTypes::Hero => "x-pulse 200".to_string(),
+        BikeTypes::Yamaha => "fz-150".to_string(),
+    }
+}
