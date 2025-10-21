@@ -1,37 +1,40 @@
-//Todo list program that allows user to add, view, delete and track the status
+use std::io;
+mod user_input;
 
-use tabled::{Table, Tabled};
-
-mod input;
-#[derive(Debug)]
-pub enum TodoStatus {
-    Completed,
-    Pending,
+fn display_details() {
+    println!(
+        "
+    Press 1. Add Contact 
+    Press 2. See List
+    Press 3. To quit
+    "
+    )
 }
 
-impl std::fmt::Display for TodoStatus {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            TodoStatus::Completed => write!(f, "Completed"),
-            TodoStatus::Pending => write!(f, "Pending"),
-        }
-    }
-}
+fn user_menu_choice() -> u8 {
+    let mut user_choice = String::new();
+    io::stdin()
+        .read_line(&mut user_choice)
+        .expect("Error with io modules");
 
-#[derive(Debug, Tabled)]
-pub struct TodoStruct {
-    pub id: u8,
-    pub title: String,
-    pub status: TodoStatus,
+    let response = user_choice.replace("\n", "").parse::<u8>().unwrap();
+    response
 }
 
 fn main() {
-    let mut todo_list_array: Vec<TodoStruct> = Vec::new();
-    loop {
-        let user_input_modules = input::user_input();
-        todo_list_array.push(user_input_modules);
+    let contact_array: Vec<user_input::UserStruct> = Vec::new();
+    println!("Welcome to Call Manager App");
 
-        let table_data = Table::new(&todo_list_array);
-        println!("{}", table_data)
+    loop {
+        display_details();
+        let user_choice = user_menu_choice();
+
+        match user_choice {
+            1 => {}
+
+            2 => {}
+
+            _ => {}
+        }
     }
 }
