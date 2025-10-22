@@ -5,6 +5,8 @@ use std::io;
 use tabled::Table;
 mod user_input;
 
+//NOTE: reviewing code for revision
+
 fn display_details() {
     println!(
         "
