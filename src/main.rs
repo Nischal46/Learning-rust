@@ -1,99 +1,21 @@
-use crate::user_input::UserStruct;
-use colored::Colorize;
-use console::style;
-use std::io;
-use tabled::Table;
-mod user_input;
-
-//NOTE: reviewing code for revision
-
-fn display_details() {
-    println!(
-        "
-    Press 1. Add Contact 
-    Press 2. See List
-    Press 3. To quit
-    "
-    )
-}
-
-fn user_menu_choice() -> String {
-    let mut user_choice = String::new();
-    io::stdin()
-        .read_line(&mut user_choice)
-        .expect("Error with io modules");
-
-    let response = user_choice.replace("\n", "");
-    response
-}
-
-fn app_run_flag(inp: &mut bool) {
-    *inp = false;
-}
-
-fn check_type(input: &String) -> &'static str {
-    if input.parse::<i32>().is_ok() {
-        "integer"
-    } else if input.parse::<f64>().is_ok() {
-        "float"
-    } else {
-        "string"
-    }
-}
-
+//NOTE: Lifetimes
 fn main() {
-    let mut contact_array: Vec<user_input::UserStruct> = Vec::new();
-    println!(
-        "{}",
-        "\n -- ********** Welcome to Call Manager App ********** --".blue()
-    );
-    let mut app_run = true;
+    let x = 15;
+    let y = 22;
 
-    while app_run {
-        display_details();
-        let user_choice = user_menu_choice();
+    let single = Borrowed(&x);
+    let double = ObjectLike {x: &x, y: &y};
 
-        let check_type = check_type(&user_choice);
+    println!("x is borrowed in {:?}", single);
+    println!("x and y are borrowed in {:?}", double);
+    
+}
 
-        if check_type == "integer" {
-            match user_choice.parse::<i8>() {
-                Ok(1) => {
-                    let user_name = user_input::input_modules::user_name_input_fn();
-                    let user_contact = user_input::input_modules::user_contact_input_fn();
-                    let user_address = user_input::input_modules::user_address_input_fn();
+#[derive(Debug)]
+struct Borrowed<'a>(&'a i32);
 
-                    let contact_details = UserStruct {
-                        name: user_name,
-                        contact: user_contact,
-                        address: user_address,
-                    };
-
-                    contact_details.add();
-                    contact_array.push(contact_details);
-                }
-
-                Ok(2) => {
-                    let result = Table::new(&contact_array);
-                    println!("{}", result);
-                    if contact_array.len() == 0 {
-                        println!("{}", style("Empty data").yellow());
-                    }
-                }
-
-                Ok(3) => {
-                    app_run_flag(&mut app_run);
-                    println!("{}", style("\n Quit App Successfully").green());
-                }
-
-                _ => {
-                    println!(
-                        "{}",
-                        style("\n Invalid input. Please choose appropriate").yellow()
-                    );
-                }
-            }
-        } else {
-            println!("{}", style("\n Please use number as above description").red());
-        }
-    }
+#[derive(Debug)]
+struct ObjectLike<'a> {
+    x: &'a i32,
+    y: &'a i32
 }
