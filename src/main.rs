@@ -1,6 +1,7 @@
-fn main(){
+use std::collections::HashMap;
+fn main() {
     //vec! is rust macro that help to provide initial val
-    let mut num = vec![2,3,5];
+    let mut num = vec![2, 3, 5];
     num.push(22);
 
     // let third = &num[2];
@@ -26,12 +27,20 @@ fn main(){
     let s2 = String::from("tac");
     let s3 = String::from("toe");
 
-    //NOTE: The key difference of using format macro is that 
+    //NOTE: The key difference of using format macro is that
     //it doesnot take ownership and it makes easy to read
 
     let s = format!("{}-{}-{}", s1, s2, s3);
 
     let ss = s1 + "*" + &s2 + "*" + &s3;
+
+    for c in "नमस्ते".chars() {
+        println!("{}", c);
+    }
+
+    for b in "नमस्ते".bytes() {
+        println!("{}", b);
+    }
 
     println!("Printinf of the format macro, {}", s);
     println!("{}", ss);
@@ -42,4 +51,30 @@ fn main(){
 
     println!("Logging of the string, {}", string_defined);
     println!("logging of the new string, {}", new_string);
+
+    //NOTE: Concept hash map
+
+    let mut country_scores = HashMap::new();
+    country_scores.insert("Nepal".to_string(), 255);
+    country_scores.insert("Canada".to_string(), 200);
+
+    println!("{:#?}", country_scores);
+
+    let field_name = String::from("Favorite color");
+    let field_value = String::from("Blue");
+    let mut map = HashMap::new();
+    map.insert(field_name, field_value);
+
+    println!("{:#?}", map);
+
+    let getting_Value_nepal = country_scores.get("Nepal");
+    // country_scores.insert("Australia".to_string(), 250); //cannot add in here becuase of above immutable
+
+    println!("{:#?}", getting_Value_nepal);
+
+    //Throws a error as value moved
+    // println!(
+    //     "Tryong to lof one of the variable after it declare as key in hashmap {}",
+    //     field_name
+    // );
 }
