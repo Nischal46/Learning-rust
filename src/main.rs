@@ -1,80 +1,53 @@
 use std::collections::HashMap;
+
 fn main() {
-    //vec! is rust macro that help to provide initial val
-    let mut num = vec![2, 3, 5];
-    num.push(22);
+    //using of hashmap and its method in program
+    //these type of collections are widely used in game development, scalable server
 
-    // let third = &num[2];
+    //this will use hash function and store inside of ram memory
 
-    for i in &mut num {
-        //NOTE: first dereference i
-        *i += 3;
+    let mut product_reviews = HashMap::new();
+
+    product_reviews.insert("Laptop".to_string(), "DELL".to_string());
+    product_reviews.insert("Mouse".to_string(), "Fantech".to_string());
+    product_reviews.insert("Monitor".to_string(), "Benq".to_string());
+
+    //NOTE: contains_key() method
+
+    if product_reviews.contains_key("Monitor") {
+        println!("Monitor found");
     }
 
-    num.push(55);
-
-    let mut v = Vec::new();
-    // v.push(2);
-    v.push("hello");
-
-    //NOTE: Concept string
-
-    let mut string_defined = String::from("hello");
-    let new_string = "later added";
-    string_defined.push_str(new_string);
-
-    let s1 = String::from("tic");
-    let s2 = String::from("tac");
-    let s3 = String::from("toe");
-
-    //NOTE: The key difference of using format macro is that
-    //it doesnot take ownership and it makes easy to read
-
-    let s = format!("{}-{}-{}", s1, s2, s3);
-
-    let ss = s1 + "*" + &s2 + "*" + &s3;
-
-    for c in "नमस्ते".chars() {
-        println!("{}", c);
+    else{
+        println!("Monitor doesnot found")
     }
 
-    for b in "नमस्ते".bytes() {
-        println!("{}", b);
+    //NOTE: can also iter through loop
+
+    let to_find = ["Laptop", "Keyword"];
+
+    for &product in &to_find {
+        match product_reviews.get(product) {
+            Some(review) => println!("{product} : {review}"),
+            None => println!("{product} not reviewed")
+        }
     }
 
-    println!("Printinf of the format macro, {}", s);
-    println!("{}", ss);
-    // println!("Logging of third element by referencing, {:?}", third);
+    for key in product_reviews.keys() {
+        println!("{key}");
+    }
 
-    println!("Printing of vec data type: {:?}", num);
-    println!("Printing of vec data type through new function, {:?}", v);
+    //we can also initialized through array
 
-    println!("Logging of the string, {}", string_defined);
-    println!("logging of the new string, {}", new_string);
+    let bike_arr = [("duke", 700000), ("yamaha", 600000), ("pulsar", 450000)];
 
-    //NOTE: Concept hash map
+    let initialize_bike = HashMap::from(bike_arr);
 
-    let mut country_scores = HashMap::new();
-    country_scores.insert("Nepal".to_string(), 255);
-    country_scores.insert("Canada".to_string(), 200);
+    // println!("Logging of bike array, {:#?}", initialize_bike);
 
-    println!("{:#?}", country_scores);
+    for (key, val) in initialize_bike.iter() {
+        println!("{} :: {}", key, val);
+    }
 
-    let field_name = String::from("Favorite color");
-    let field_value = String::from("Blue");
-    let mut map = HashMap::new();
-    map.insert(field_name, field_value);
-
-    println!("{:#?}", map);
-
-    let getting_Value_nepal = country_scores.get("Nepal");
-    // country_scores.insert("Australia".to_string(), 250); //cannot add in here becuase of above immutable
-
-    println!("{:#?}", getting_Value_nepal);
-
-    //Throws a error as value moved
-    // println!(
-    //     "Tryong to lof one of the variable after it declare as key in hashmap {}",
-    //     field_name
-    // );
+    // panic!("App crash")
 }
