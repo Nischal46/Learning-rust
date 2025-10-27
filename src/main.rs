@@ -1,53 +1,27 @@
-use std::collections::HashMap;
+use std::{fs::File, io::ErrorKind};
 
 fn main() {
-    //using of hashmap and its method in program
-    //these type of collections are widely used in game development, scalable server
+    //Error Handling in Rust
+    //two types of error
 
-    //this will use hash function and store inside of ram memory
+    let f = File::open("hello.txt");
 
-    let mut product_reviews = HashMap::new();
-
-    product_reviews.insert("Laptop".to_string(), "DELL".to_string());
-    product_reviews.insert("Mouse".to_string(), "Fantech".to_string());
-    product_reviews.insert("Monitor".to_string(), "Benq".to_string());
-
-    //NOTE: contains_key() method
-
-    if product_reviews.contains_key("Monitor") {
-        println!("Monitor found");
-    }
-
-    else{
-        println!("Monitor doesnot found")
-    }
-
-    //NOTE: can also iter through loop
-
-    let to_find = ["Laptop", "Keyword"];
-
-    for &product in &to_find {
-        match product_reviews.get(product) {
-            Some(review) => println!("{product} : {review}"),
-            None => println!("{product} not reviewed")
+    let f = match f {
+        Ok(file) => file,
+        Err(ref error) if error.kind() == ErrorKind::NotFound => {
+            match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => {
+                    panic!("Tried to create file but there was problem: {:?}", e);
+                }
+            }
+        },
+        Err(error) => {
+            panic!("There was problem opening the file: {:?}", error);
         }
-    }
+    };
 
-    for key in product_reviews.keys() {
-        println!("{key}");
-    }
+    println!("{:?}", f);
 
-    //we can also initialized through array
-
-    let bike_arr = [("duke", 700000), ("yamaha", 600000), ("pulsar", 450000)];
-
-    let initialize_bike = HashMap::from(bike_arr);
-
-    // println!("Logging of bike array, {:#?}", initialize_bike);
-
-    for (key, val) in initialize_bike.iter() {
-        println!("{} :: {}", key, val);
-    }
-
-    // panic!("App crash")
+    //shortcut for error hhandling can be done by unwrap and expect
 }
