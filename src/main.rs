@@ -1,27 +1,38 @@
-use std::{fs::File, io::ErrorKind};
+#[derive(Debug)]
+struct OS {
+    name: String,
+    launch_year: u16,
+    laptop: OSType,
+}
+
+#[derive(Debug)]
+enum OSType {
+    Dell,
+    Mac,
+    Lenovo,
+}
 
 fn main() {
-    //Error Handling in Rust
-    //two types of error
-
-    let f = File::open("hello.txt");
-
-    let f = match f {
-        Ok(file) => file,
-        Err(ref error) if error.kind() == ErrorKind::NotFound => {
-            match File::create("hello.txt") {
-                Ok(fc) => fc,
-                Err(e) => {
-                    panic!("Tried to create file but there was problem: {:?}", e);
-                }
-            }
-        },
-        Err(error) => {
-            panic!("There was problem opening the file: {:?}", error);
-        }
+    let os_obj = OS {
+        name: "Linux".to_string(),
+        launch_year: 1990,
+        laptop: OSType::Dell,
     };
 
-    println!("{:?}", f);
+    let ownership_change = &os_obj;
 
-    //shortcut for error hhandling can be done by unwrap and expect
+    println!("Logging of the object ---- {:#?}", ownership_change);
+    println!("Logging of the object ---- {:#?}", os_obj);
+
+    for n in 0..10 {
+        println!("{}n loop", n)
+    }
+
+    let mut vec_alloc = Vec::<i32>::with_capacity(5);
+
+    for n in 10..18 {
+        vec_alloc.push(n);
+    }
+
+    println!("Printing vec_alloc after inserting: {:#?}", vec_alloc);
 }
