@@ -1,38 +1,46 @@
-#[derive(Debug)]
-struct OS {
-    name: String,
-    launch_year: u16,
-    laptop: OSType,
-}
+use std::panic;
 
-#[derive(Debug)]
-enum OSType {
-    Dell,
-    Mac,
-    Lenovo,
+fn check_condition() -> Result<(), String> {
+    if 2 < 3 {
+        Err("Sorry wrong".to_string())
+    } else {
+        Ok(())
+    }
 }
 
 fn main() {
-    let os_obj = OS {
-        name: "Linux".to_string(),
-        launch_year: 1990,
-        laptop: OSType::Dell,
-    };
+    //NOTE: Rust has two type of error - recoverable and unrecoverable
 
-    let ownership_change = &os_obj;
-
-    println!("Logging of the object ---- {:#?}", ownership_change);
-    println!("Logging of the object ---- {:#?}", os_obj);
-
-    for n in 0..10 {
-        println!("{}n loop", n)
+    match check_condition() {
+        Ok(_) => println!("All good"),
+        Err(e) => println!("Error caught {}", e),
     }
 
-    let mut vec_alloc = Vec::<i32>::with_capacity(5);
+    //since panic crash and quit whole program thread so it has catch_unwind method
 
-    for n in 10..18 {
-        vec_alloc.push(n);
+    let result = panic::catch_unwind(|| {
+        if 2 < 3 {
+            panic!("Sorry darling");
+        } else {
+            println!("True true");
+        }
+    });
+
+    match result {
+        Ok(_) => println!("No panic occurred"),
+        Err(err) => println!("Recovered from panic: {:?}", err),
     }
 
-    println!("Printing vec_alloc after inserting: {:#?}", vec_alloc);
+    let v = vec![2,3,4,5];
+
+    let check = panic::catch_unwind(|| {
+        let num = v[3];
+    });
+
+    match check {
+        Ok(_) => println!("No panic occurred"),
+        Err(err) => println!("Recovered from panic: {:?}", err),
+    }
+
+    println!("Program continues!");
 }
