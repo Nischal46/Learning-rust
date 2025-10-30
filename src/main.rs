@@ -1,46 +1,36 @@
-use std::panic;
+//NOTE: The shortcut of thandling of the error in rust beside using match And return Result <T, E> is unwrap();
+//unwrap acts similar to Result
 
-fn check_condition() -> Result<(), String> {
-    if 2 < 3 {
-        Err("Sorry wrong".to_string())
-    } else {
-        Ok(())
+use std::fs::File;
+
+fn check_validation(a: u8, b: u8) -> Result<String, String> {
+    if a > b {
+        Err("Error alert. a smaller than b".to_string())
+    }
+    else{
+        Ok("Pass. a smaller than b".to_string())
     }
 }
 
 fn main() {
-    //NOTE: Rust has two type of error - recoverable and unrecoverable
 
-    match check_condition() {
-        Ok(_) => println!("All good"),
-        Err(e) => println!("Error caught {}", e),
+    let a = 2 > 3;
+
+    println!("{}", a);
+
+    let a= 5;
+    let b = 3;
+
+    let calling_fn = check_validation(a, b);
+    println!("Here here {:#?}", calling_fn);
+
+    let mut vector = vec![1,2,3,4,5];
+
+    for n in 10..15 {
+        vector.push(n);
     }
 
-    //since panic crash and quit whole program thread so it has catch_unwind method
+    println!("After mutating vector array data {:?} ---- ", vector);
 
-    let result = panic::catch_unwind(|| {
-        if 2 < 3 {
-            panic!("Sorry darling");
-        } else {
-            println!("True true");
-        }
-    });
-
-    match result {
-        Ok(_) => println!("No panic occurred"),
-        Err(err) => println!("Recovered from panic: {:?}", err),
-    }
-
-    let v = vec![2,3,4,5];
-
-    let check = panic::catch_unwind(|| {
-        let num = v[3];
-    });
-
-    match check {
-        Ok(_) => println!("No panic occurred"),
-        Err(err) => println!("Recovered from panic: {:?}", err),
-    }
-
-    println!("Program continues!");
+    // println!("{:#?}", open_file);
 }
