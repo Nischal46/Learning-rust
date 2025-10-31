@@ -1,36 +1,32 @@
-//NOTE: The shortcut of thandling of the error in rust beside using match And return Result <T, E> is unwrap();
-//unwrap acts similar to Result
+fn check_voting_eligibility(user: &User) -> bool {
+    user.age > 18 
+}
 
-use std::fs::File;
-
-fn check_validation(a: u8, b: u8) -> Result<String, String> {
-    if a > b {
-        Err("Error alert. a smaller than b".to_string())
-    }
-    else{
-        Ok("Pass. a smaller than b".to_string())
-    }
+#[derive(Debug)]
+struct User {
+    name: String,
+    age: u8,
 }
 
 fn main() {
+    let mut user_array: Vec<User> = Vec::new();
+    let user1 = User {
+        name: "Nischal".to_string(),
+        age: 19,
+    };
 
-    let a = 2 > 3;
+    let user2 = User {
+        name: "Suresh".to_string(),
+        age: 17,
+    };
+    user_array.push(user1);
+    user_array.push(user2);
 
-    println!("{}", a);
-
-    let a= 5;
-    let b = 3;
-
-    let calling_fn = check_validation(a, b);
-    println!("Here here {:#?}", calling_fn);
-
-    let mut vector = vec![1,2,3,4,5];
-
-    for n in 10..15 {
-        vector.push(n);
+    for user in &user_array {
+        if check_voting_eligibility(user) {
+            println!("Dear {}. You are eligible to vote.", user.name);
+        } else {
+            println!("Dear {}. You are not eligible to vote.", user.name);
+        }
     }
-
-    println!("After mutating vector array data {:?} ---- ", vector);
-
-    // println!("{:#?}", open_file);
 }
