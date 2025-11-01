@@ -1,32 +1,29 @@
-fn check_voting_eligibility(user: &User) -> bool {
-    user.age > 18 
+trait Product {
+    fn product_title(&self) -> &str;
 }
 
 #[derive(Debug)]
-struct User {
-    name: String,
-    age: u8,
+struct Laptop {
+    title: String
 }
 
-fn main() {
-    let mut user_array: Vec<User> = Vec::new();
-    let user1 = User {
-        name: "Nischal".to_string(),
-        age: 19,
-    };
-
-    let user2 = User {
-        name: "Suresh".to_string(),
-        age: 17,
-    };
-    user_array.push(user1);
-    user_array.push(user2);
-
-    for user in &user_array {
-        if check_voting_eligibility(user) {
-            println!("Dear {}. You are eligible to vote.", user.name);
-        } else {
-            println!("Dear {}. You are not eligible to vote.", user.name);
-        }
+impl Product for Laptop {
+    fn product_title(&self) -> &str {
+        &self.title
     }
 }
+//reading of trait 
+fn main() {
+   //trait is like interface like we define interface in ts
+
+   let product1 = Laptop {
+    title: "Dell Laptop".to_string()
+   };
+
+   println!("{:#?}", product1.product_title());
+}
+
+// we can make it reusable in other struct form complex data type
+
+
+
