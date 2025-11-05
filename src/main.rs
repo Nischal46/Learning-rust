@@ -1,30 +1,29 @@
 #[derive(Debug)]
-struct ProductDetails {
-    product_type: String,
-    product_brand: String,
-    is_available: bool
+struct VehicleDetails {
+    vehicle_type: String,
+    brand: String,
+    price: u32,
 }
 
-trait ProductTrait {
-    fn greet(&self) -> String;
+trait VehicleTAX {
+    fn tax(&self) -> u32;
 }
 
-impl ProductTrait for ProductDetails {
-    fn greet(&self) -> String {
-        format!("Congratulations. you had won {:#?}", &self.product_brand)
+impl VehicleTAX for VehicleDetails {
+    fn tax(&self) -> u32 {
+        (&self.price) / 100 * 13
     }
 }
 
 fn main() {
-    use ProductTrait; // Bring trait into scope
-    
-    let product1 = ProductDetails {
-        product_type: "Laptop".to_string(),
-        product_brand: "DELL".to_string(),
-        is_available: true
+    // use VehicleTAX;
+
+    let vehicle1 = VehicleDetails {
+        vehicle_type: "SUV".to_string(),
+        brand: "Ford".to_string(),
+        price: 20000000
     };
 
-    println!("{:#?}", product1);
-    println!("{:#?}", product1.greet());
-
+    println!("{:#?}", vehicle1);
+    println!("{}", vehicle1.tax());
 }
