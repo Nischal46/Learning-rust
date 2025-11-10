@@ -23,6 +23,6 @@ fn main() {
     };
 
     println!("{:#?}", obj);
-    println!("{:#?}", obj.greet());
+    println!("{}", obj.greet());
 
 }
