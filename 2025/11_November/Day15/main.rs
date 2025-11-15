@@ -61,4 +61,13 @@ fn main() {
     product_collection.insert("js".to_string(), "language that teaches me programming".to_string());
 
     println!("Prinitng of the hash map: {:#?}", product_collection);
+
+    let programming_lang = vec!["rust", "java", "js", "python"];
+
+    for &lang in &programming_lang {
+        match product_collection.get(lang) {
+            Some(book) => println!("{lang} found in array"),
+            None => println!("{lang} not found in array")
+        }
+    }
 }
