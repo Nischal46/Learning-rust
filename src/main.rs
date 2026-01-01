@@ -1,15 +1,30 @@
-mod module_concept;
-mod common_collection;
+use std::io::{Read, Write};
+use std::net::{TcpListener, TcpStream};
+use std::fs::File;
 
 fn main() {
+let listener = TcpListener::bind("127.0.0.1:7878")
+    .unwrap();
 
-    let mut name = String::new();
-    std::io::stdin().read_line(&mut name).unwrap();
-
-    for n in 0..5 {
-        println!("Hello, {}", name);
-
+    for stream in listener.incoming() {
+        let stream = stream.unwrap();
+        handle_connection(stream);
     }
+}
 
+fn handle_connection(mut stream: TcpStream){
+    let mut buffer = [0; 512];
+    stream.read(&mut buffer).unwrap();
 
+    // let response = "HTTP/1.1 200 OK\r\n\r\n";
+    let mut file = File::open("hello.html").expect("Could not open hello.html - make sure it's in the project root");
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    println!("{}", contents);
+    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n{}", contents);
+
+    stream.write(response.as_bytes()).unwrap();
+    stream.flush().unwrap();
+
+    // return response;
 }
