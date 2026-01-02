@@ -1,30 +1,36 @@
-use std::io::{Read, Write};
-use std::net::{TcpListener, TcpStream};
-use std::fs::File;
+use std::thread;
+use std::time::Duration;
 
-fn main() {
-let listener = TcpListener::bind("127.0.0.1:7878")
-    .unwrap();
+fn simulated_expensive_calculation(intensity: u32) -> u32 {
+    println!("Taking time for calculating");
+    thread::sleep(Duration::from_secs(3));
+    println!("Printing only after 3 seconds");
+    intensity
+}
+fn main(){
+    // simulated_expensive_calculation(5);
+    // hold_for_four_second();
+    normal_function();
 
-    for stream in listener.incoming() {
-        let stream = stream.unwrap();
-        handle_connection(stream);
-    }
+    // for n in 0..100000000 {
+    //     println!("times: {}", n);
+    // }
+
+    let closure_concept = |x| {
+        thread::sleep(Duration::from_secs(5));
+        println!("Closure concept {}", x);
+    };
+
+    closure_concept(10);
+    closure_concept(20);
+    closure_concept(70);
 }
 
-fn handle_connection(mut stream: TcpStream){
-    let mut buffer = [0; 512];
-    stream.read(&mut buffer).unwrap();
+fn hold_for_four_second() {
+    thread::sleep(Duration::from_secs(4));
+    println!("Hold for-4 Second");
+}
 
-    // let response = "HTTP/1.1 200 OK\r\n\r\n";
-    let mut file = File::open("hello.html").expect("Could not open hello.html - make sure it's in the project root");
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).unwrap();
-    println!("{}", contents);
-    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n{}", contents);
-
-    stream.write(response.as_bytes()).unwrap();
-    stream.flush().unwrap();
-
-    // return response;
+fn normal_function(){
+    println!("Normal function");
 }
