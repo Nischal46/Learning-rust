@@ -1,36 +1,45 @@
+use std::collections::HashMap;
 use std::thread;
 use std::time::Duration;
 
-fn simulated_expensive_calculation(intensity: u32) -> u32 {
-    println!("Taking time for calculating");
-    thread::sleep(Duration::from_secs(3));
-    println!("Printing only after 3 seconds");
-    intensity
-}
-fn main(){
-    // simulated_expensive_calculation(5);
-    // hold_for_four_second();
-    normal_function();
-
-    // for n in 0..100000000 {
-    //     println!("times: {}", n);
-    // }
-
-    let closure_concept = |x| {
-        thread::sleep(Duration::from_secs(5));
-        println!("Closure concept {}", x);
-    };
-
-    closure_concept(10);
-    closure_concept(20);
-    closure_concept(70);
+struct Cacher<T>
+where
+    T: Fn(u32) -> u32,
+{
+    calculation: T,
+    values: HashMap<u32, u32>,
 }
 
-fn hold_for_four_second() {
-    thread::sleep(Duration::from_secs(4));
-    println!("Hold for-4 Second");
+impl<T> Cacher<T>
+where
+    T: Fn(u32) -> u32,
+{
+    fn new(calculation: T) -> Cacher<T> {
+        Cacher {
+            calculation,
+            values: HashMap::new(),
+        }
+    }
+
+    fn value(&mut self, arg: u32) -> u32 {
+        if let Some(v) = self.values.get(&arg) {
+            *v
+        } else {
+            let v = (self.calculation)(arg);
+            self.values.insert(arg, v);
+            v
+        }
+    }
 }
 
-fn normal_function(){
-    println!("Normal function");
+fn main() {
+    let mut expensive_result = Cacher::new(|num| {
+        println!("calculating slowly...");
+        thread::sleep(Duration::from_secs(2));
+        num
+    });
+
+    println!("Value: {}", expensive_result.value(40));
+    println!("Value: {}", expensive_result.value(50));
+    println!("Value: {}", expensive_result.value(40)); // cached
 }
