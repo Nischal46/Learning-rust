@@ -1,16 +1,20 @@
+
+#[derive(Debug)]
+struct Empoyee {
+    employee_name: String,
+    employee_email: String,
+}
+
 fn main() {
-    //revising of the anonymous function
 
-    let x = vec![1, 2, 3, 4, 5];
+    let closure_concept = |x| x + 2;
 
-    let iterVectorData: Vec<_> = x.iter().map(|x| x * 2 ).collect();
+    let emp1 = Empoyee {
+        employee_name: "Nischal".to_string(),
+        employee_email: "nischal@nisal.com".to_string(),
+    };
 
-    let an_x = |x| x+2;
+    let num1 = closure_concept(3);
 
-    let new = an_x(5);
-    println!("{}", new);
-
-    println!("{:#?}", iterVectorData);
-
-    assert_eq!(x, iterVectorData);
+    println!("Employee: {:?}", emp1);
 }
