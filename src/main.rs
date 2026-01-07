@@ -1,20 +1,47 @@
+//Error management
 
-#[derive(Debug)]
-struct Empoyee {
-    employee_name: String,
-    employee_email: String,
+enum ATMError {
+    InsufficientBalance,
+    InvalidPIN,
+}
+
+fn with_draw(amount: i32, pin: i32) -> Result<i32, ATMError> {
+    let balance = 100000;
+    if pin != 1234 {
+        return Err(ATMError::InvalidPIN);
+    }
+
+    if amount > balance {
+        return Err(ATMError::InsufficientBalance);
+    }
+
+    Ok(balance - amount)
 }
 
 fn main() {
 
-    let closure_concept = |x| x + 2;
+    let result = with_draw(25000, 1234);
 
-    let emp1 = Empoyee {
-        employee_name: "Nischal".to_string(),
-        employee_email: "nischal@nisal.com".to_string(),
-    };
+    match result {
+        Ok(balance) => {
+            println!("{}", balance);
+        }
 
-    let num1 = closure_concept(3);
+        Err(ATMError::InvalidPIN) => {
+            println!("Invalid PIN");
+        }
 
-    println!("Employee: {:?}", emp1);
+        Err(ATMError::InsufficientBalance) => {
+            println!("Insufficient Balance");
+        }
+    }
+
+    let content = std::fs::read_to_string("config.txt").expect("Failed to read config.txt file");
+    println!("{:?}", content);
+
+
 }
+
+
+//Key of understanding
+// panic means to abort whole program and it is unrecoverable
