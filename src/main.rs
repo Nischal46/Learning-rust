@@ -1,47 +1,38 @@
-//Error management
-
 enum ATMError {
-    InsufficientBalance,
     InvalidPIN,
+    InsuffecientAmount
 }
 
-fn with_draw(amount: i32, pin: i32) -> Result<i32, ATMError> {
-    let balance = 100000;
+fn atm_machine (pin: i32, amount: i64) -> Result<i64, ATMError>{
+    let available_amount = 1000;
     if pin != 1234 {
         return Err(ATMError::InvalidPIN);
     }
 
-    if amount > balance {
-        return Err(ATMError::InsufficientBalance);
+    if available_amount < amount {
+        return Err(ATMError::InsuffecientAmount);
     }
 
-    Ok(balance - amount)
+    Ok(available_amount - amount)
 }
 
 fn main() {
 
-    let result = with_draw(25000, 1234);
+    let withdraw_money = atm_machine(1237, 500);
 
-    match result {
-        Ok(balance) => {
-            println!("{}", balance);
+    match withdraw_money {
+
+        Ok(response) => {
+            println!("{} withdraw successfully", response);
+        }
+
+        Err(ATMError::InsuffecientAmount) => {
+            println!("Insufficient balance");
         }
 
         Err(ATMError::InvalidPIN) => {
             println!("Invalid PIN");
         }
 
-        Err(ATMError::InsufficientBalance) => {
-            println!("Insufficient Balance");
-        }
     }
-
-    let content = std::fs::read_to_string("config.txt").expect("Failed to read config.txt file");
-    println!("{:?}", content);
-
-
 }
-
-
-//Key of understanding
-// panic means to abort whole program and it is unrecoverable
