@@ -1,55 +1,43 @@
-enum UserError {
-    InvalidEmailOrPassword
+//concept for vehicle registration
+
+enum ValidationError {
+    InvalidCitizenship,
+    InvalidMobileNumber,
+    InvalidPANNumber,
+    InvalidNIDNumber,
+    InvaledLicenseNumber
 }
 
 #[derive(Debug)]
-struct User {
+struct citizenship {
     name: String,
-    email: String,
-    password: String
+    citizen_number: i64
 }
 
-fn registration_user(name: String, email: String, password: String) -> User {
-    return User {
-        name: name,
-        email: email,
-        password: password
-    }
+fn check_citizenship(){
+    let registered_citizen: Vec<citizenship> = vec![
+        citizenship{
+            name: "Nischal Baniya".to_string(),
+            citizen_number: 13432
+        },
+        citizenship{
+            name: "Nischal Baniya".to_string(),
+            citizen_number: 13432
+        }
+    ];
+
+    println!("Logging saved data: -> {:#?}", registered_citizen);
 }
 
-fn login_user(email: String, password: String, user_list:&Vec<User>) -> Result<String, UserError>{
-    println!("In login function");
-    println!("{}", email);
-    println!("{}", password);
-    println!("{:?}", user_list);
+fn check_mobilenumber(){}
 
-    for x in user_list {
-        if x.email == "baniya@gmail.com" && x.email == "abcd" {
-            return Ok("Login successfully".to_string());
-        }
-    }
-    return Err(UserError::InvalidEmailOrPassword);
-}
+fn check_pan(){}
 
-fn main () {
-    let mut user_vec: Vec<User> = Vec::new();
-    let fn_call_1 = registration_user("nischal".to_string(), "nischal@gmail.com".to_string(), "admin".to_string());
-    user_vec.push(fn_call_1);
+fn check_nid(){}
 
-    let fn_call_1 = registration_user("baniya".to_string(), "baniya@gmail.com".to_string(), "admin".to_string());
-    user_vec.push(fn_call_1);
-    // println!("{:#?}", obj1); //it will generate error as referencing had been transferred
-
-    let login = login_user("baniya@gmail.com".to_string(), "abcd".to_string(), &user_vec);
-
-    match login {
-        Ok(resp) => {
-            println!("{}", resp);
-        }
-
-        Err(UserError::InvalidEmailOrPassword) => {
-            println!("Invalid user or password");
-        }
-    }
-
+fn main() {
+    //this program helps user to register in the Hami nepali app where real logic mimics like
+    // sending of otp, some fake data would stored in vec data type.
+    // suppose all of them are different department and try to communicate with them
+    check_citizenship();
 }
