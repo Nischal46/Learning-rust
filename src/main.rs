@@ -28,7 +28,26 @@ fn passing_string(inp: String, next_string: &str){
 //must be uppercase according to standard
 const main_access_var: &'static str = "This is global variable";
 
-fn main(){
+#[derive(Debug)]
+enum Role {
+    Superadmin,
+    Admin,
+    User
+}
 
-    checking_lifetime();
+fn role(role_str: &str) -> Result<Role, String> {
+    match role_str.to_lowercase().as_str() {
+        "superadmin" => Ok(Role::Superadmin),
+        "admin" => Ok(Role::Admin),
+        "user" => Ok(Role::User),
+        _ => Err(format!("Invalid role: {}", role_str)),
+    }
+}
+
+fn main() {
+    let r1 = role("admin");
+    let r2 = role("manager");
+
+    println!("{:?}", r1); // Ok(Admin)
+    println!("{:?}", r2); // Err("Invalid role: manager")
 }
