@@ -33,8 +33,7 @@ fn main(){
 }
 
 fn move_ownership(secret_item: String){
-    forward_ownership(secret_item);
-    // println!("The secret item is: {}", secret_item); //this will give error as secret_item ownership is moved to forward_ownership function
+    println!("The secret item is: {}", secret_item);
 }
 
 fn forward_ownership(item: String) {

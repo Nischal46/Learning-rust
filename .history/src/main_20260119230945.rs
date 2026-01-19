@@ -13,30 +13,13 @@ fn main(){
 
     let mut name = String::from("Nischal"); //String type is mutable and heap allocated. To mutate we must declare mut keyword.
 
-    name.push_str(" Baniya"); //push_str method appends a string slice to the String.
-
-    name.push(char::from('!')); //push method appends a single character to the String.
-
-    println!("Hello, {}", name);
-    println!("Hello again, {}", name);
+    println!("Hello, {}!", name);
+    println!("Hello again, {}!", name);
 
 
     let name_redeclare = name; //here name is moved to name_redeclare
     //println!("Hello, {}!", name); //this will give error as name is moved
     println!("Hello once more, {}!", name_redeclare);
 
-    let secret_product = String::from("Secret Product 001");
-    move_ownership(secret_product); //here ownership of secret_product is moved to the function
-
-    // println!("Logging secret id: {}", secret_product); //this will give error as secret_product ownership is moved to the function
     //these all will be drop automatically as the end of the scope
-}
-
-fn move_ownership(secret_item: String){
-    forward_ownership(secret_item);
-    // println!("The secret item is: {}", secret_item); //this will give error as secret_item ownership is moved to forward_ownership function
-}
-
-fn forward_ownership(item: String) {
-    println!("Forwarding ownership of item: {}", item);
 }
