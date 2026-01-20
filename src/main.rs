@@ -1,42 +1,55 @@
-const STATIC_ID: &str = "static_identifier_12345";
+fn main() {
+    let mut initial_value = String::from("Hello, World!");
+    println!("Before passing reference {}", initial_value);
+    pass_ownership(&mut initial_value);
 
-fn main(){
-    //string literal is immutable.example
+    println!("After passing reference {}", initial_value);
 
-    let string_literal_1: &str = "This is a string literal. It cannot be modified.";
-    println!("{}", string_literal_1);
-    println!("Static ID: {}", string_literal_1);
+    let result = dangle_concept_first();
+    println!("Dangle concept result: {}", result);
 
-    //Rust treats string literals as &'static str and 
-    //trate fn println(arg: &str) as taking a reference to a string slice.
-    //So we can pass string literals directly to println! macro.
-
-    let mut name = String::from("Nischal"); //String type is mutable and heap allocated. To mutate we must declare mut keyword.
-
-    name.push_str(" Baniya"); //push_str method appends a string slice to the String.
-
-    name.push(char::from('!')); //push method appends a single character to the String.
-
-    println!("Hello, {}", name);
-    println!("Hello again, {}", name);
-
-
-    let name_redeclare = name; //here name is moved to name_redeclare
-    //println!("Hello, {}!", name); //this will give error as name is moved
-    println!("Hello once more, {}!", name_redeclare);
-
-    let secret_product = String::from("Secret Product 001");
-    move_ownership(secret_product); //here ownership of secret_product is moved to the function
-
-    // println!("Logging secret id: {}", secret_product); //this will give error as secret_product ownership is moved to the function
-    //these all will be drop automatically as the end of the scope
+    let sample_string = String::from("Hello, Rustaceans!");
+    find_first_word_by_byte_method(&sample_string);
+    let char_concept = find_first_word_by_char_method(&sample_string);
+    println!("First word by char method: {}", char_concept);
 }
 
-fn move_ownership(secret_item: String){
-    forward_ownership(secret_item);
-    // println!("The secret item is: {}", secret_item); //this will give error as secret_item ownership is moved to forward_ownership function
+//concept about passing references and mutability in Rust
+//mutable reference concept that allows modification of the original data
+fn pass_ownership(s: &mut String) {
+    println!("{}", s);
+    s.push_str(" Modified inside function.");
 }
 
-fn forward_ownership(item: String) {
-    println!("Forwarding ownership of item: {}", item);
+//dangling references concept in Rust
+//Rust prevents dangling references at compile time
+//EXAMPLE
+
+// fn dangle_concept_first() -> &String
+//probaly this will give compile time error
+//because new_variable will be dropped when the function ends
+//and returning reference to it will create dangling reference
+
+fn dangle_concept_first() -> String {
+    let new_variable = String::from("This varible lives in this inside function scope");
+    new_variable
+}
+
+fn find_first_word_by_byte_method(s: &str) -> &str {
+    let bytes = s.as_bytes(); //convert string to array of bytes
+
+    //for(i as index and &item as u8 number as 101, 104 etc) 
+    for (i, &item) in bytes.iter().enumerate() {
+        let ch = item as char; //converting u8 number to char
+        println!("Index: {}, Item: {}, char: {}", i, item, ch);
+
+        if item == b' ' {//checking for space character
+            return &s[..i]; //this slices the string from start to index i
+        }
+    }
+    s
+}
+
+fn find_first_word_by_char_method(s: &str) -> String {
+    s.chars().take_while(|&c| c != ' ').collect()
 }
