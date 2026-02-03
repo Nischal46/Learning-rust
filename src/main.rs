@@ -1,37 +1,35 @@
 #[derive(Debug)]
-struct Citizen<'a> {
-    name: &'a str,
-    contact: u64,
-    age: u8,
+enum Area {
+    Circle(f64, f64),
+    Rectangle(u8, u8),
 }
 
-impl <'a> Citizen<'a> {
-    fn new(name: &'a str, contact: u64, age: u8) -> Self {
-        Self {
-            name: name,
-            contact: contact,
-            age: age,
-        }
+impl Area {
+    //associative fn and deal with Self
+    fn circle_constructor(pi: f64, radius: f64) -> Self {
+        Self::Circle(pi, radius)
     }
 
-    fn check_voting_eligibility(&self){
-        if *&self.age > 18 {
-            println!("{} is eligible for voting.", &self.name);
-        } 
-        else {
-            println!("{} is not eligible for voting.", &self.name);
+    fn rectangle_constructor(length: u8, breadth: u8) -> Self {
+        Self::Rectangle(length, breadth)
+    }
+
+    //methods
+    fn area(&self) -> f64 {
+        // * refers for deferencing of the reference of the memory value
+        match *self {
+            Area::Circle(pi, radius) => pi * radius * radius,
+            Area::Rectangle(length, breadth) => (2 * (length + breadth)).into(),
         }
     }
 }
 
 fn main() {
-    // struct and impl block concept
+    let area_circle_1 = Area::circle_constructor(3.14, 7.0);
+    println!("{:?}", area_circle_1);
+    println!("Area of circle: {:?}", area_circle_1.area());
 
-    let person1 = Citizen::new("nischal", 9809875678, 23);
-    println!("Person 1 object details: {:?}", person1);
-    person1.check_voting_eligibility();
-
-    let person2 = Citizen::new("baniya", 9786543234, 17);   
-    println!("Person2 object details: {:?}", person2);
-    person2.check_voting_eligibility();
+    let area_rectangle_1 = Area::rectangle_constructor(12, 10);
+    println!("{:?}", area_rectangle_1);
+    println!("Area of rectangle: {:?}", area_rectangle_1.area())
 }
