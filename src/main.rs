@@ -4,6 +4,12 @@ enum Area {
     Rectangle(u8, u8),
 }
 
+//Generic concept
+
+fn print_data<T: std::fmt::Display>(data: T) {
+    println!("Data: {}", data);
+}
+
 impl Area {
     //associative fn and deal with Self
     fn circle_constructor(pi: f64, radius: f64) -> Self {
@@ -31,5 +37,13 @@ fn main() {
 
     let area_rectangle_1 = Area::rectangle_constructor(12, 10);
     println!("{:?}", area_rectangle_1);
-    println!("Area of rectangle: {:?}", area_rectangle_1.area())
+    println!("Area of rectangle: {:?}", area_rectangle_1.area());
+
+    let possibility1 = 1;
+    let possibility2 = "Hello";
+    let possibility3 = true;
+
+    let _res1 = print_data(possibility1);
+    let _res2 = print_data(possibility2);
+    let _res3 = print_data(possibility3);
 }
