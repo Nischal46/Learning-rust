@@ -1,49 +1,62 @@
 #[derive(Debug)]
-enum Area {
-    Circle(f64, f64),
-    Rectangle(u8, u8),
+struct Product<'a>{
+    title: &'a str,
+    brand: &'a str,
+    price: u64,
+    stock_quantity: u8
 }
 
-//Generic concept
+impl<'a> Product<'a> {
+    //associative fn similar to constructor
+    //difference measure by Self
 
-fn print_data<T: std::fmt::Display>(data: T) {
-    println!("Data: {}", data);
-}
-
-impl Area {
-    //associative fn and deal with Self
-    fn circle_constructor(pi: f64, radius: f64) -> Self {
-        Self::Circle(pi, radius)
+    fn new(title: &'a str, brand: &'a str, price: u64, stock_quantity: u8) -> Self {
+        Self {
+            title: title,
+            brand: brand,
+            price: price,
+            stock_quantity
+        }
     }
 
-    fn rectangle_constructor(length: u8, breadth: u8) -> Self {
-        Self::Rectangle(length, breadth)
-    }
-
-    //methods
-    fn area(&self) -> f64 {
-        // * refers for deferencing of the reference of the memory value
-        match *self {
-            Area::Circle(pi, radius) => pi * radius * radius,
-            Area::Rectangle(length, breadth) => (2 * (length + breadth)).into(),
+    fn is_expensive_product(&self){
+        if *&self.price > 12000 {
+            println!("{} is expensive product cost Rs {}", &self.title, &self.price);
+        }
+        else {
+            println!("{} is less expensive as Rs {}", &self.title, &self.price);
         }
     }
 }
 
 fn main() {
-    let area_circle_1 = Area::circle_constructor(3.14, 7.0);
-    println!("{:?}", area_circle_1);
-    println!("Area of circle: {:?}", area_circle_1.area());
+    let mut product_array: Vec<Product> = Vec::new();
+    println!("This code is written in neovim ide");
+    //product_array.push("Hello");
+    let obj1= Product {
+        title: "Chair",
+        brand: "Well known",
+        price: 11500,
+        stock_quantity: 1
+    };
 
-    let area_rectangle_1 = Area::rectangle_constructor(12, 10);
-    println!("{:?}", area_rectangle_1);
-    println!("Area of rectangle: {:?}", area_rectangle_1.area());
+    let obj2 = Product {
+        title: "Monitor",
+        brand: "Benq",
+        price: 20000,
+        stock_quantity: 1
+    };
 
-    let possibility1 = 1;
-    let possibility2 = "Hello";
-    let possibility3 = true;
+    product_array.push(obj1);
 
-    let _res1 = print_data(possibility1);
-    let _res2 = print_data(possibility2);
-    let _res3 = print_data(possibility3);
+    let constructor_object = Product::new("Laptop", "Dell", 64000, 2);
+    constructor_object.is_expensive_product();
+    println!("Logging of the object by constructor function: {:#?}", constructor_object);
+
+    let constructor_object = Product::new("Mouse", "Fantech", 1500, 1);
+    constructor_object.is_expensive_product();
+println!("Object of constructor ---{:#?}", constructor_object);
+    product_array.push(obj2);
+    println!("Logging of the product array: {:#?}", product_array);
+
 }
