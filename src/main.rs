@@ -29,6 +29,12 @@ impl<'a> Product<'a> {
     }
 }
 
+//NOTE: simply passing of lifetime parameter in function or string slices
+
+fn helper_fn(inp: &str){
+    println!("You had passed this string: {}", inp);
+}
+
 fn main() {
     let mut product_array: Vec<Product> = Vec::new();
     println!("This code is written in neovim ide");
@@ -58,5 +64,13 @@ fn main() {
 println!("Object of constructor ---{:#?}", constructor_object);
     product_array.push(obj2);
     println!("Logging of the product array: {:#?}", product_array);
+
+    helper_fn("This is only string slices");
+
+    let a = [1,2,3,4,5];
+
+    let slice = &a[0..4];
+
+    println!("logging slices: {:?}", slice);
 
 }
