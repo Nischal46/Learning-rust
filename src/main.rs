@@ -1,25 +1,30 @@
-fn main() -> Result<(), Box<dyn std::error::Error>>{
-    let data_1 = "Hey developer";
-
-    let data_2 = String::from("Rust rules");
-
- 
-    passing_ownership_of_string_literals(data_1);
-
-    passing_ownership_of_string_of_heap_concept(data_2);
-
-    println!("Checking if we can access {}", data_1);
-
-    //println!("Checking for especially string that stores as heap: {}", data_2);
-
-    Ok(())
+#[derive(Debug)]
+struct Developer<'a> {
+    name: &'a str,
+    postion: &'a str
 }
 
-fn passing_ownership_of_string_literals(data: &str){
-    println!("Logging in function scope -- {}", data);
-}
+fn main<'a>(){
+    let dev_1 = Developer {
+        name: "Nischal",
+        postion: "Senior Rust Engineer"
+    };
 
-fn passing_ownership_of_string_of_heap_concept(data: String){
-    println!("Passing of the ownership in thhhis function scope: {}", data);
-    println!("Check whether: {}", data);
+    let x = 5;
+
+    let grap_value;
+
+    {
+        let var_a = &x;
+        println!("Accessing value of a: {}", var_a);
+    }
+
+    {
+        let make_lifetime: &'a i8 = 3;
+        grap_value = &make_lifetime;
+        println!("Inside scope lifetime: {}", make_lifetime);
+    }
+
+    println!("Logging of the object of developer: {:#?}", dev_1);
+    println!("Accessing of lifetime from outside: {}", make_lifetime);
 }
