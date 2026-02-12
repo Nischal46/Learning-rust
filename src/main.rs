@@ -1,35 +1,39 @@
-fn main(){
-    //concept about lifetime 
-
-    let ptr;
-    let another_ptr;
-
-    {
-        let declare_String: &'static str = "Inside scope";
-        ptr = declare_String; 
-
-        let num : &'static i8 = &10;
-        another_ptr = num;
-        println!("Accessing inside: {}", num);
-        println!("Accessing inside: {}", another_ptr);
-    }
-
-    // println!("Logging declare_String outside: {}", declare_String);
-
-    println!("Accessing outside: {}", ptr);
-    println!("Accessing outside: {}", another_ptr);
-
-    let result = prevent_dangling_reference();
-    println!("Accessing outside: {}", result);
+//enum concept
+#[derive(Debug)]
+enum Role {
+    admin,
+    user
 }
 
-fn prevent_dangling_reference() -> &'static str{
-    let result;
-    {
-        // let new_lifetime : &'static str = "i am still active from differnt function";
-        let new_lifetime : &'static str = "i am still active from differnt function dsf";
-        result = new_lifetime;
-        println!("Accessing inside: {}", new_lifetime);
-    } 
-    result
+#[derive(Debug)]
+enum UserDetails {
+    email(String),
+    phone_number(i32)
+}
+
+#[derive(Debug)]
+enum PlayerMoveDirection {
+    up {x: i8, y:i8},
+    down {x: i8, y: i8},
+    right {x: i8, y: i8},
+    left {x: i8, y: i8}
+}
+
+fn main(){
+    access_user_data(Role::admin);
+    getting_user_details(UserDetails::email(String::from("nisal@rust.com")));
+
+    let player_move = PlayerMoveDirection::up {
+        x: 2, y:0
+    };
+
+    println!("Logging of the player movement: {:#?}", player_move);
+}
+
+fn access_user_data(role: Role){
+    println!("Logging accepting parameter: {:#?}", role);
+}
+
+fn getting_user_details(userdetails: UserDetails){
+    println!("Logging user details: {:#?}", userdetails);
 }
