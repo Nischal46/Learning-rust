@@ -1,39 +1,29 @@
-//enum concept
-#[derive(Debug)]
-enum Role {
-    admin,
-    user
-}
-
-#[derive(Debug)]
-enum UserDetails {
-    email(String),
-    phone_number(i32)
-}
-
-#[derive(Debug)]
-enum PlayerMoveDirection {
-    up {x: i8, y:i8},
-    down {x: i8, y: i8},
-    right {x: i8, y: i8},
-    left {x: i8, y: i8}
-}
-
 fn main(){
-    access_user_data(Role::admin);
-    getting_user_details(UserDetails::email(String::from("nisal@rust.com")));
+    let arry_num_1 = vec![22,14,6,56,32];
 
-    let player_move = PlayerMoveDirection::up {
-        x: 2, y:0
-    };
+    let arry_num_2 = vec![99, 544, 56, 7777, 3, 5,2,2];
 
-    println!("Logging of the player movement: {:#?}", player_move);
+    let arry_num_1_respose = find_largest(&arry_num_1);
+    let arry_num_2_respose = find_largest(&arry_num_2);
+
+    let char_list = vec!['w', 'z', 'c', 'b'];
+
+    let char_list_response = find_largest(&char_list);
+
+    println!("Logging of the array 1 response: {}", arry_num_1_respose);
+    println!("Logging of the array 2 response: {}", arry_num_2_respose);
+    println!("Logging largest char: {}", char_list_response);
 }
 
-fn access_user_data(role: Role){
-    println!("Logging accepting parameter: {:#?}", role);
-}
+//Implementing generics types concept
+fn find_largest<T: PartialOrd>(list: &[T]) -> &T {
+    let mut highest_num = list[0];
 
-fn getting_user_details(userdetails: UserDetails){
-    println!("Logging user details: {:#?}", userdetails);
+    for item in list.iter(){
+        if item > highest_num {
+            highest_num = item
+        }
+    }
+
+    &highest_num
 }
