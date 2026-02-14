@@ -1,29 +1,35 @@
-fn main(){
-    let arry_num_1 = vec![22,14,6,56,32];
-
-    let arry_num_2 = vec![99, 544, 56, 7777, 3, 5,2,2];
-
-    let arry_num_1_respose = find_largest(&arry_num_1);
-    let arry_num_2_respose = find_largest(&arry_num_2);
-
-    let char_list = vec!['w', 'z', 'c', 'b'];
-
-    let char_list_response = find_largest(&char_list);
-
-    println!("Logging of the array 1 response: {}", arry_num_1_respose);
-    println!("Logging of the array 2 response: {}", arry_num_2_respose);
-    println!("Logging largest char: {}", char_list_response);
+#[derive(Debug)]
+enum Payment {
+    Cash, 
+    Esewa,
+    Khalti
 }
 
-//Implementing generics types concept
-fn find_largest<T: PartialOrd>(list: &[T]) -> &T {
-    let mut highest_num = list[0];
+#[derive(Debug)]
+struct Product <'a> {
+    product_type: &'a str,
+    price: i32
+}
 
-    for item in list.iter(){
-        if item > highest_num {
-            highest_num = item
-        }
+fn main(){
+    let product_array: Vec<Product> = vec![{Product {
+        product_type: "Tshirt",
+        price: 1200
+    }}, {Product {
+        product_type: "Cardo pants",
+        price: 1800
+    }}];
+
+    let user_choice = &product_array[1];
+
+    println!("Product array: {:#?}", product_array);
+
+    //if greater than 1500 paid with wallet otherwise cash
+    if user_choice.price > 1500 {
+        println!("{:#?}", Payment::Esewa);
+    }
+    else {
+        println!("{:#?}", Payment::Cash);
     }
 
-    &highest_num
-}
+   }
