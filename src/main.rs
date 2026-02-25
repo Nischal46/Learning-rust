@@ -1,35 +1,38 @@
-#[derive(Debug)]
-enum Payment {
-    Cash, 
-    Esewa,
-    Khalti
+//Trait concept
+
+use std::fs;
+
+pub trait Summary {
+    fn Summarize(&self) -> String;
 }
 
 #[derive(Debug)]
-struct Product <'a> {
-    product_type: &'a str,
-    price: i32
+pub struct Instrument {
+    instrument_type: String,
+    instrument_brand: String,
+    instrument_price: i32
+}
+
+impl Summary for Instrument{
+    fn Summarize(&self) -> String {
+        let res = "Return from trait".to_owned();
+        res
+    }
 }
 
 fn main(){
-    let product_array: Vec<Product> = vec![{Product {
-        product_type: "Tshirt",
-        price: 1200
-    }}, {Product {
-        product_type: "Cardo pants",
-        price: 1800
-    }}];
+    let obj = Instrument {
+        instrument_type: "Guitar".to_owned(),
+        instrument_brand: "Mantra".to_owned(),
+        instrument_price: 7500
+    };
 
-    let user_choice = &product_array[1];
+    let res = obj.Summarize();
 
-    println!("Product array: {:#?}", product_array);
+    println!("{:#?}", obj);
 
-    //if greater than 1500 paid with wallet otherwise cash
-    if user_choice.price > 1500 {
-        println!("{:#?}", Payment::Esewa);
-    }
-    else {
-        println!("{:#?}", Payment::Cash);
-    }
+    println!("{}", res);
 
-   }
+    let read_File = fs::read_to_string("file.txt").unwrap();
+    println!("Read file text: {:#?}", read_File);
+}
