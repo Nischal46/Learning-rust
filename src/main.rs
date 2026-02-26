@@ -1,38 +1,33 @@
-//Trait concept
-
-use std::fs;
-
-pub trait Summary {
-    fn Summarize(&self) -> String;
-}
-
-#[derive(Debug)]
-pub struct Instrument {
-    instrument_type: String,
-    instrument_brand: String,
-    instrument_price: i32
-}
-
-impl Summary for Instrument{
-    fn Summarize(&self) -> String {
-        let res = "Return from trait".to_owned();
-        res
-    }
-}
-
 fn main(){
-    let obj = Instrument {
-        instrument_type: "Guitar".to_owned(),
-        instrument_brand: "Mantra".to_owned(),
-        instrument_price: 7500
-    };
+    //about string concept
 
-    let res = obj.Summarize();
+    let mut word_1 = String::from("Hello");
+  //  println!("Before adding Word_1: {}", word_1);
 
-    println!("{:#?}", obj);
+    word_1.push_str(" lll");
 
-    println!("{}", res);
+    word_1.push('r');
 
-    let read_File = fs::read_to_string("file.txt").unwrap();
-    println!("Read file text: {:#?}", read_File);
+    println!("After adding: Word_1: {}", word_1);
+
+    let a1 = String::from("coffee");
+    let a2 = String::from("with");
+    let a3 = String::from("Code");
+
+    let a4 = a1 + "-" + &a2 + "-" + &a3; //take ownership
+    println!("concatenation concept -- {}", a4);                                         
+    
+    let a1 = "nischal";
+    let a2 = "guitar";
+    let a3 = "code";
+
+    let final_word = format!("{}-plays-{}-and {}", a1, a2, a3);
+
+    println!("without taking ownership: {}", final_word);
+
+    let hello = "Здравствуйте";
+let answer = &hello[0];
+
+println!("{}", answer);
+
 }
