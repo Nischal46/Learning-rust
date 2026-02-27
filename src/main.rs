@@ -1,33 +1,55 @@
 fn main(){
-    //about string concept
+    //unit type 
+    let x: () = (); //this is like null type we cannot assign any value
+    println!("{:?}", x);
 
-    let mut word_1 = String::from("Hello");
-  //  println!("Before adding Word_1: {}", word_1);
+    let f1: f32 = 22.9;
+    println!("{}", f1);
 
-    word_1.push_str(" lll");
+    type_coersion();
 
-    word_1.push('r');
+    char_concept();
 
-    println!("After adding: Word_1: {}", word_1);
+    string_concept();
 
-    let a1 = String::from("coffee");
-    let a2 = String::from("with");
-    let a3 = String::from("Code");
+    tuple_concept();
 
-    let a4 = a1 + "-" + &a2 + "-" + &a3; //take ownership
-    println!("concatenation concept -- {}", a4);                                         
-    
-    let a1 = "nischal";
-    let a2 = "guitar";
-    let a3 = "code";
+    array_concept();
+}
 
-    let final_word = format!("{}-plays-{}-and {}", a1, a2, a3);
+fn type_coersion(){
+    let x: f32 = 123.4;
 
-    println!("without taking ownership: {}", final_word);
+    let y: u8 = x as u8 - 23;
 
-    let hello = "Здравствуйте";
-let answer = &hello[0];
+    println!("{}", y);
+}
 
-println!("{}", answer);
+fn char_concept(){
+    let only_char: char = 'r';
+    println!("{}", only_char);
+}
 
+fn string_concept(){
+
+    //string contains two concept
+
+    let my_string = "hello";
+    println!("{}", my_string);
+}
+
+fn tuple_concept(){
+    let datas: (&str, i8) = ("Nischal", 25);
+
+    println!("{:?}", datas);
+}
+
+fn array_concept(){
+    let arr: [i8; 5] = [12,23,34,45,56];
+    println!("Print out array value: {:?}", arr);
+
+    //slices concept
+
+    let slices_arr = &arr[1..3];
+    println!("Taking arr slices: {:?}", slices_arr);
 }
