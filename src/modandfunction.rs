@@ -13,4 +13,3 @@ pub fn check_user_details(email: String, password: &str) {
 fn check_email() {}
 
 fn check_password() {}
-

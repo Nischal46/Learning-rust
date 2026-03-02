@@ -1,11 +1,11 @@
 pub mod datatype;
+pub mod inputfromstd;
+pub mod loopconcept;
 pub mod modandfunction;
 
 fn main() {
     datatype::rust_data_type();
-    modandfunction::check_user_details("nischal@dev.com".to_owned(), "qwerty");
-
-    for v in 1..12 {
-        println!("{}", v);
-    }
+    //modandfunction::check_user_details("nischal@dev.com".to_owned(), "qwerty");
+    inputfromstd::take_input_from_user();
+    loopconcept::loop_exercise();
 }
