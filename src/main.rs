@@ -5,6 +5,7 @@ pub mod inputfromstd;
 pub mod loopconcept;
 pub mod matchcondition;
 pub mod modandfunction;
+pub mod structconcept;
 
 fn main() {
     //datatype::rust_data_type();
@@ -14,4 +15,5 @@ fn main() {
     closureconcept::closure_concept();
     matchcondition::match_condition();
     enumconcept::enum_concept();
+    structconcept::struct_concept();
 }
