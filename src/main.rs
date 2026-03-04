@@ -16,4 +16,10 @@ fn main() {
     matchcondition::match_condition();
     enumconcept::enum_concept();
     structconcept::struct_concept();
+
+    let stringlit = "hello";
+
+    for i in stringlit.chars() {
+        println!("char: {}", i);
+    }
 }
