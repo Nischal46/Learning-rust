@@ -45,4 +45,11 @@ pub fn struct_concept() {
     obj_2.manufacturer();
 
     println!("Electronic object: {:?}", obj_2);
+
+    let obj_3 = Electronic {
+        product: "Mouse".to_owned(),
+        ..obj_2
+    };
+
+    println!("Electronic object rest: {:?}", obj_3);
 }
