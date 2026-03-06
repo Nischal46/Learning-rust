@@ -1,55 +1,38 @@
-trait Details {
-    fn details(&self) {}
-    fn manufacturer(&self) {}
+// struct concept with trait
+
+trait AuthToken {
+    fn check_token(&self) -> bool;
 }
 
 #[derive(Debug)]
-struct Instrument<'a> {
-    title: &'a str,
-}
-
-impl Details for Instrument<'_> {
-    fn details(&self) {
-        println!(
-            "Impl block with traits and instrument title: {}",
-            self.title
-        )
-    }
+struct AuthLogin<'a> {
+    email: &'a str,
+    password: &'a str,
+    token: &'a str,
 }
 
 #[derive(Debug)]
-struct Electronic {
-    product: String,
-    price: u32,
+struct AuthRegister<'a> {
+    name: &'a str,
+    email: &'a str,
+    password: &'a str,
 }
 
-impl Details for Electronic {
-    fn manufacturer(&self) {
-        println!(
-            "Manufacturer: Nischal, Product: {} & Price: {}",
-            self.product, self.price
-        );
+impl<'a> AuthToken for AuthLogin<'a> {
+    fn check_token(&self) -> bool {
+        self.token == "asdfghjkl"
     }
 }
 
 pub fn struct_concept() {
-    let obj_1 = Instrument { title: "Guitar" };
-    println!("Instrument Object: {:?}", obj_1);
-    obj_1.details();
-
-    let obj_2 = Electronic {
-        product: "Laptop".to_owned(),
-        price: 68000,
+    let user = AuthLogin {
+        email: "nisal@gmail.com",
+        password: "abcd",
+        token: "asdfghjkl",
     };
 
-    obj_2.manufacturer();
+    let check_token = user.check_token();
 
-    println!("Electronic object: {:?}", obj_2);
-
-    let obj_3 = Electronic {
-        product: "Mouse".to_owned(),
-        ..obj_2
-    };
-
-    println!("Electronic object rest: {:?}", obj_3);
+    println!("Logging user object --- {:?}", user);
+    println!("check token ----{}", check_token);
 }
