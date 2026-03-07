@@ -31,5 +31,22 @@ pub fn closure_concept() {
     arr.sort();
 
     println!("Sorted arr: {:?}", arr);
-}
 
+    fn special_closure_fn() {
+        let mut count = 0;
+
+        let mut increment_closure = |x| {
+            println!("Accepting as param in closure: {}", x);
+            count += x
+        };
+
+        for n in 1..5 {
+            increment_closure(n);
+            println!("for iteration: {}", n);
+        }
+
+        println!("At last closure concept total: {}", count);
+    }
+
+    special_closure_fn();
+}
