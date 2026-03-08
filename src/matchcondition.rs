@@ -8,4 +8,12 @@ pub fn match_condition() {
         6..10 => println!("Number is between 6 to 10"),
         _ => println!("Number exceeds"),
     }
+
+    let month = "March";
+
+    match month {
+        "January" | "February" => println!("Trigger first month"),
+        "March" | "April" => println!("Trigger second month"),
+        _ => println!("Default"),
+    }
 }
