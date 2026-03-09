@@ -35,4 +35,26 @@ pub fn struct_concept() {
 
     println!("Logging user object --- {:?}", user);
     println!("check token ----{}", check_token);
+
+    //////////////////
+    let product_obj = Product::new("Laptop".to_owned(), "DELL".to_owned(), 68000);
+    println!("Returning from constructor ---- {:?}", product_obj);
+}
+
+//making oop like constructor
+#[derive(Debug)]
+struct Product {
+    title: String,
+    manufacture: String,
+    price: i32,
+}
+
+impl Product {
+    fn new(title: String, manufacture: String, price: i32) -> Product {
+        Self {
+            title,
+            manufacture,
+            price,
+        }
+    }
 }
