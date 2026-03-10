@@ -1,60 +1,41 @@
-// struct concept with trait
-
-trait AuthToken {
-    fn check_token(&self) -> bool;
+trait DetailsTrait {
+    fn detials(&self) -> String;
 }
 
 #[derive(Debug)]
-struct AuthLogin<'a> {
-    email: &'a str,
-    password: &'a str,
-    token: &'a str,
+struct Instrument<'a> {
+    title: &'a str,
+    brand: &'a str,
+    price: u16,
 }
 
-#[derive(Debug)]
-struct AuthRegister<'a> {
-    name: &'a str,
-    email: &'a str,
-    password: &'a str,
+impl<'a> Instrument<'a> {
+    fn new(title: &'a str, brand: &'a str, price: u16) -> Self {
+        Instrument {
+            title,
+            brand,
+            price,
+        }
+    }
 }
 
-impl<'a> AuthToken for AuthLogin<'a> {
-    fn check_token(&self) -> bool {
-        self.token == "asdfghjkl"
+impl DetailsTrait for Instrument<'_> {
+    fn detials(&self) -> String {
+        println!("This is trait fn declaration");
+
+        let returning_string = format!(
+            "Instrument: {}, Brand: {}, Price: {}",
+            self.title, self.brand, self.price
+        );
+
+        returning_string
     }
 }
 
 pub fn struct_concept() {
-    let user = AuthLogin {
-        email: "nisal@gmail.com",
-        password: "abcd",
-        token: "asdfghjkl",
-    };
+    let ins_obj = Instrument::new("Guitar", "Mantra", 7500);
 
-    let check_token = user.check_token();
+    println!("Object of instrument: {:?}", ins_obj);
 
-    println!("Logging user object --- {:?}", user);
-    println!("check token ----{}", check_token);
-
-    //////////////////
-    let product_obj = Product::new("Laptop".to_owned(), "DELL".to_owned(), 68000);
-    println!("Returning from constructor ---- {:?}", product_obj);
-}
-
-//making oop like constructor
-#[derive(Debug)]
-struct Product {
-    title: String,
-    manufacture: String,
-    price: i32,
-}
-
-impl Product {
-    fn new(title: String, manufacture: String, price: i32) -> Product {
-        Self {
-            title,
-            manufacture,
-            price,
-        }
-    }
+    println!("this is method returning from imp: {}", ins_obj.detials());
 }
