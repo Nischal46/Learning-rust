@@ -1,41 +1,56 @@
-trait DetailsTrait {
-    fn detials(&self) -> String;
+trait AreaTrait {
+    fn area(&self) -> u8;
+}
+
+trait ResultTrait {
+    fn result(&self) -> &str;
 }
 
 #[derive(Debug)]
-struct Instrument<'a> {
-    title: &'a str,
-    brand: &'a str,
-    price: u16,
+struct Rectangle {
+    length: u8,
+    breadth: u8,
 }
 
-impl<'a> Instrument<'a> {
-    fn new(title: &'a str, brand: &'a str, price: u16) -> Self {
-        Instrument {
-            title,
-            brand,
-            price,
-        }
+#[derive(Debug)]
+struct Traingle {
+    breadth: u8,
+    height: u8,
+}
+
+//rust donot directly multiple trait
+
+impl AreaTrait for Rectangle {
+    fn area(&self) -> u8 {
+        2 * (self.breadth + self.length)
     }
 }
 
-impl DetailsTrait for Instrument<'_> {
-    fn detials(&self) -> String {
-        println!("This is trait fn declaration");
+impl ResultTrait for Rectangle {
+    fn result(&self) -> &str {
+        let res = "result found";
+        res
+    }
+}
 
-        let returning_string = format!(
-            "Instrument: {}, Brand: {}, Price: {}",
-            self.title, self.brand, self.price
-        );
-
-        returning_string
+impl AreaTrait for Traingle {
+    fn area(&self) -> u8 {
+        (self.breadth * self.height) / 2
     }
 }
 
 pub fn struct_concept() {
-    let ins_obj = Instrument::new("Guitar", "Mantra", 7500);
+    let rec = Rectangle {
+        length: 12,
+        breadth: 15,
+    };
 
-    println!("Object of instrument: {:?}", ins_obj);
+    let trianle_1 = Traingle {
+        breadth: 12,
+        height: 10,
+    };
 
-    println!("this is method returning from imp: {}", ins_obj.detials());
+    println!("Area of triangle: {} cm^2", trianle_1.area());
+
+    println!("Result of area of rectangle: {} cm^2", rec.area());
 }
