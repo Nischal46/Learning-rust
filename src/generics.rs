@@ -1,6 +1,5 @@
-use std::ops::Add;
-
 pub mod generic_concept {
+
     use std::ops::Add;
 
     #[derive(Debug)]
