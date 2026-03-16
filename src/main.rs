@@ -5,6 +5,7 @@ pub mod generics;
 pub mod inputfromstd;
 pub mod loopconcept;
 pub mod matchcondition;
+pub mod minigrep;
 pub mod modandfunction;
 pub mod structconcept;
 
@@ -18,4 +19,5 @@ fn main() {
     // enumconcept::enum_concept();
     structconcept::struct_concept();
     generics::generic_concept::generic_fn();
+    minigrep::minigrep();
 }
