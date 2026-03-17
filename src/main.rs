@@ -20,6 +20,7 @@ fn main() {
     // enumconcept::enum_concept();
     //struct_conceptructconcept::struct_concept();
     //generics::generic_concept::generic_fn();
-    //minigrep::minigrep();
+    minigrep::minigrep();
     dsa::dsa();
+    structconcept::struct_concept();
 }

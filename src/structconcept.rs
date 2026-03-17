@@ -1,38 +1,26 @@
 // struct concept
 
 #[derive(Debug)]
-struct ExercisePrototype<'a> {
-    title: &'a str,
-    sets: u8,
-    reps: u8,
-}
-
-impl<'a> ExercisePrototype<'a> {
-    fn new(title: &'a str, sets: u8, reps: u8) -> Self {
-        Self { title, sets, reps }
-    }
-
-    fn announce(&self, name: &'a str) -> String {
-        let res = format!(
-            "{} has done {} of {} sets with {} reps each",
-            name, self.title, self.sets, self.reps
-        );
-
-        res
-    }
+struct DayStruct<'a> {
+    month: u8,
+    day: &'a str,
 }
 
 pub fn struct_concept() {
-    const MAIN_LIFETIME: &'static str = "Hello, I am lifetime";
-    let exercise_detail = ExercisePrototype::new("Bench press", 3, 12);
-    println!("Exercise detials: {:?}", exercise_detail);
-    outside_fn(MAIN_LIFETIME);
-    println!("Targeting lifetime: {}", MAIN_LIFETIME);
+    let mut vec_day: Vec<DayStruct<'_>> = Vec::new();
 
-    let res = exercise_detail.announce("Nischal");
-    println!("Associative fn method: {}", res);
-}
+    let obj = DayStruct {
+        month: 3,
+        day: "Tuesday",
+    };
 
-fn outside_fn(lifetime: &str) {
-    println!("From other fn: {}", lifetime);
+    let obj2 = DayStruct {
+        month: 3,
+        day: "friday",
+    };
+
+    vec_day.push(obj);
+    vec_day.push(obj2);
+
+    println!("Logging of vec_day: {:?}", vec_day);
 }
