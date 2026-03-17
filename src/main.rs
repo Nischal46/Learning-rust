@@ -1,5 +1,6 @@
 pub mod closureconcept;
 pub mod datatype;
+pub mod dsa;
 pub mod enumconcept;
 pub mod generics;
 pub mod inputfromstd;
@@ -17,7 +18,8 @@ fn main() {
     // closureconcept::closure_concept();
     // matchcondition::match_condition();
     // enumconcept::enum_concept();
-    structconcept::struct_concept();
-    generics::generic_concept::generic_fn();
-    minigrep::minigrep();
+    //struct_conceptructconcept::struct_concept();
+    //generics::generic_concept::generic_fn();
+    //minigrep::minigrep();
+    dsa::dsa();
 }
