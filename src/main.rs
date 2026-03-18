@@ -9,7 +9,9 @@ pub mod matchcondition;
 pub mod minigrep;
 pub mod modandfunction;
 pub mod structconcept;
+pub mod tictactoe;
 
+#[allow(dead_code)]
 fn main() {
     //datatype::rust_data_type();
     //modandfunction::check_user_details("nischal@dev.com".to_owned(), "qwerty");
@@ -20,7 +22,8 @@ fn main() {
     // enumconcept::enum_concept();
     //struct_conceptructconcept::struct_concept();
     //generics::generic_concept::generic_fn();
-    minigrep::minigrep();
-    dsa::dsa();
-    structconcept::struct_concept();
+    //minigrep::minigrep();
+    //dsa::dsa();
+    //structconcept::struct_concept();
+    tictactoe::game();
 }
