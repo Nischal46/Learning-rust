@@ -16,7 +16,7 @@ pub fn game() {
         }
     }
 
-    fn user_input() {
+    fn user_input() -> i32 {
         let mut number: i32;
         println!("Enter a choice: ");
         let mut choice = String::new();
@@ -26,24 +26,29 @@ pub fn game() {
 
         match choice.trim().parse::<i32>() {
             Ok(num) => {
-                number = num;
+                if num < 1 || num > 9 {
+                    println!("Please type number from 1 to 9");
+                    user_input()
+                } else {
+                    number = num;
+                    return number;
+                }
             }
             Err(_) => {
-                println!("Please enter a valid number. Try again!")
+                println!("Please enter a valid number. Try again!");
+                user_input()
             }
         }
-
-        // if number < 1 || number > 9 {
-        //     println!("Please enter between 1 to 9");
-        // }
-
-        println!("you had enter {}.", choice);
     }
+
+    fn logic() {}
 
     fn init() {
         //board();
+        let mut res;
         loop {
-            user_input();
+            res = user_input();
+            println!("User hhad type: {}", res);
         }
     }
 
