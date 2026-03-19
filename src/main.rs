@@ -13,7 +13,7 @@ pub mod tictactoe;
 
 #[allow(dead_code)]
 fn main() {
-    //datatype::rust_data_type();
+    datatype::rust_data_type();
     //modandfunction::check_user_details("nischal@dev.com".to_owned(), "qwerty");
     //inputfromstd::take_input_from_user();
     // //loopconcept::loop_exercise();
@@ -25,5 +25,21 @@ fn main() {
     //minigrep::minigrep();
     //dsa::dsa();
     //structconcept::struct_concept();
-    tictactoe::game();
+    // tictactoe::game();
+
+    let lifetime_var: &str;
+    {
+        lifetime_var = canuse_lifetime_fn::update_str();
+    }
+
+    println!("Logging don val: {}", datatype::STATIC_DON_VAL);
+
+    println!("lifetime_var: {}", lifetime_var);
+}
+
+mod canuse_lifetime_fn {
+    pub fn update_str() -> &'static str {
+        let res = "dssa";
+        res
+    }
 }

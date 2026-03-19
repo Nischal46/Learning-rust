@@ -1,3 +1,4 @@
+pub const STATIC_DON_VAL: &str = "This can access from anywhere until the pogram runs";
 pub fn rust_data_type() {
     //number type
 
@@ -29,7 +30,11 @@ pub fn rust_data_type() {
 
     //array concept
 
-    let arr: [i32; 5] = [12, 32, 43, 56, 65];
+    let lt: &'static str;
 
-    println!("Arr: {:?}", arr);
+    {
+        lt = "This is unerasable means live lifetime.";
+    }
+
+    println!("Checking..... {}", lt);
 }
