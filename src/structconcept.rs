@@ -1,26 +1,32 @@
 // struct concept
 
 #[derive(Debug)]
-struct DayStruct<'a> {
-    month: u8,
-    day: &'a str,
+struct Product<'a> {
+    title: &'a str,
+    brand: &'a str,
+    price: u32,
 }
 
 pub fn struct_concept() {
-    let mut vec_day: Vec<DayStruct<'_>> = Vec::new();
+    let mut product_vector_list: Vec<Product<'_>> = Vec::new();
 
-    let obj = DayStruct {
-        month: 3,
-        day: "Tuesday",
+    let product1 = Product {
+        title: "Laptop",
+        brand: "Dell",
+        price: 62000,
     };
 
-    let obj2 = DayStruct {
-        month: 3,
-        day: "friday",
+    let product2 = Product {
+        title: "Mouse",
+        brand: "Fantech",
+        price: 1500,
     };
 
-    vec_day.push(obj);
-    vec_day.push(obj2);
+    product_vector_list.push(product1);
+    product_vector_list.push(product2);
 
-    println!("Logging of vec_day: {:?}", vec_day);
+    println!(
+        "Logging of the product vector ------ {:?}",
+        product_vector_list
+    );
 }

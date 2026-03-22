@@ -20,7 +20,7 @@ fn main() {
     // closureconcept::closure_concept();
     // matchcondition::match_condition();
     // enumconcept::enum_concept();
-    //struct_conceptructconcept::struct_concept();
+    structconcept::struct_concept();
     //generics::generic_concept::generic_fn();
     //minigrep::minigrep();
     //dsa::dsa();
