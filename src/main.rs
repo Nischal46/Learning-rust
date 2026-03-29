@@ -3,6 +3,7 @@ pub mod datatype;
 pub mod dsa;
 pub mod enumconcept;
 pub mod generics;
+mod heapconcept;
 pub mod inputfromstd;
 pub mod loopconcept;
 pub mod matchcondition;
@@ -10,6 +11,7 @@ pub mod minigrep;
 pub mod modandfunction;
 pub mod structconcept;
 pub mod tictactoe;
+use heapconcept::boxconcept;
 
 #[allow(dead_code)]
 fn main() {
@@ -35,6 +37,8 @@ fn main() {
     println!("Logging don val: {}", datatype::STATIC_DON_VAL);
 
     println!("lifetime_var: {}", lifetime_var);
+
+    boxconcept::logic_for_box();
 }
 
 mod canuse_lifetime_fn {
