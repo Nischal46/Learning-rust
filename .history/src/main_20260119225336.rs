@@ -1,5 +1,0 @@
-const S
-
-fn main(){
-
-}
