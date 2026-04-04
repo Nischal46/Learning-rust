@@ -35,6 +35,14 @@ pub fn main_todo() {
                     println!("{:?}", todo_list);
                 }
 
+                3 => {
+                    for n in todo_list.into_iter() {
+                        if n.id == 1 {
+                            n.completed = true;
+                        }
+                    }
+                }
+
                 5 => {
                     break;
                 }
