@@ -6,7 +6,5 @@ fn main() {
 
     //projects::todo::todo::main_todo();
 
-    for n in 1..50 {
-        println!("iterator of loop -- {}", n);
-    }
+    projects::tictactoe::tictactoe::tictactoe();
 }
