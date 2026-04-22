@@ -1,3 +1,4 @@
+mod datastructures;
 mod projects;
 
 #[derive(Debug)]
@@ -16,5 +17,7 @@ fn main() {
 
     //projects::todo::todo::main_todo();
 
-    projects::tictactoe::tictactoe::tictactoe();
+    //projects::tictactoe::tictactoe::tictactoe();
+
+    datastructures::enum_concept::concept1::concept1();
 }
