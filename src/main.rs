@@ -1,5 +1,5 @@
 mod datastructures;
-mod projects;
+//mod projects;
 
 #[derive(Debug)]
 enum Product {
@@ -19,5 +19,6 @@ fn main() {
 
     //projects::tictactoe::tictactoe::tictactoe();
 
-    datastructures::enum_concept::concept1::concept1();
+    //datastructures::enum_concept::concept1::concept1();
+    datastructures::hashmap_concept::concept::concept();
 }
