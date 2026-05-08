@@ -18,6 +18,16 @@ fn hash_concept_2() {
 
     hashmap_concept.entry("user3").or_insert("new user");
 
+    // we can insert valuee with Congratulations
+
+    hashmap_concept.entry("user4").or_insert_with_key(|key| {
+        if *key == "user4" {
+            "Suprising user"
+        } else {
+            "random user"
+        }
+    });
+
     println!("Logging of the hash_concept--- {:?}", hashmap_concept);
 }
 
