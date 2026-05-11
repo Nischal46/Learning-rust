@@ -22,4 +22,27 @@ pub fn concept1() {
         breadth: 4,
     };
     println!("Choosen shape is {:?}", choosen_shape);
+
+    let mut userdetails1 = Userdetails {
+        name: "nischal",
+        email: "nischal@dev.com",
+    };
+
+    let tansferObj = greet(&mut userdetails1);
+
+    println!(
+        "Logging of the details object of the user: {:?}",
+        userdetails1
+    );
+}
+
+#[derive(Debug)]
+struct Userdetails<'a> {
+    name: &'a str,
+    email: &'a str,
+}
+
+fn greet(obj: &mut Userdetails) {
+    obj.email = "nischal.senior@dev.com";
+    println!("We got here --- {:?}", obj)
 }
