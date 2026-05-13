@@ -18,9 +18,10 @@ fn main() {
     //projects::todo::todo::main_todo();
 
     //projects::tictactoe::tictactoe::tictactoe();
-
-    datastructures::enum_concept::concept1::concept1();
+    //
+    // datastructures::enum_concept::concept1::concept1();
     // datastructures::hashmap_concept::concept::concept();
     // datastructures::trait_concept::concept::concept();
     //datastructures::box_concept::concept::concept();
+    datastructures::struct_concept::concept::concept();
 }
