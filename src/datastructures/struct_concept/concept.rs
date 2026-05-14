@@ -1,3 +1,4 @@
+#[derive(Debug)]
 enum Character {
     Attacker,
     Defenser,
@@ -18,4 +19,8 @@ pub fn concept() {
     };
 
     println!("Logging of the player1 ---- {:?}", player1);
+    println!(
+        "Logging one of the type of the enum ----- {:?}",
+        Character::Attacker
+    );
 }

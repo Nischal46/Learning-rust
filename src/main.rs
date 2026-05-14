@@ -1,5 +1,6 @@
 mod datastructures;
 //mod projects;
+mod algorithm;
 
 #[derive(Debug)]
 enum Product {
@@ -24,4 +25,5 @@ fn main() {
     // datastructures::trait_concept::concept::concept();
     //datastructures::box_concept::concept::concept();
     datastructures::struct_concept::concept::concept();
+    algorithm::queue::linearqueue::init();
 }
