@@ -1,7 +1,16 @@
-use std::collections::{HashMap, hash_map};
+use std::collections::HashMap;
 
 pub fn concept() {
-    hash_concept_2();
+    //hash_concept_2();
+    hashmap_revised();
+}
+
+fn hashmap_revised() {
+    let mut hm_concept = HashMap::new();
+    hm_concept.insert("john", "john@gmail.com");
+    hm_concept.insert("alex", "alex@gmail.com");
+
+    println!("Logging of the information of hashmap --- {:?}", hm_concept);
 }
 
 fn hash_concept_2() {
