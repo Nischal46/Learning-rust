@@ -1,58 +1,28 @@
 #[derive(Debug)]
 struct Queue {
-    data: Vec<i32>, // Changed from array to Vec for dynamic sizing
+    data: Vec<i32>,
     front: usize,
     rear: usize,
     capacity: usize,
+    size: usize,
 }
 
 impl Queue {
-    fn new(capacity: i32) -> Self {
-        let capacity_usize = capacity as usize;
+    fn new(alloc: i32) -> Self {
+        let alloc_capacity = alloc as usize;
         Queue {
-            data: vec![0; capacity_usize], // Create vector with initial capacity
+            data: vec![0; alloc_capacity],
             front: 0,
             rear: 0,
-            capacity: capacity_usize,
+            capacity: alloc_capacity,
+            size: 0,
         }
     }
 
-    fn enqueue(&mut self, elem: i32) -> bool {
-        if self.is_full() {
-            println!("Queue is full! Cannot enqueue {}", elem);
-            return false;
-        }
-
+    fn add_elem_in_queue(&mut self, elem: i32) {
         self.data[self.rear] = elem;
-        self.rear = (self.rear + 1) % self.capacity;
-        true
-    }
-
-    fn dequeue(&mut self) -> Option<i32> {
-        if self.is_empty() {
-            println!("Queue is empty! Cannot dequeue");
-            return None;
-        }
-
-        let value = self.data[self.front];
-        self.front = (self.front + 1) % self.capacity;
-        Some(value)
-    }
-
-    fn is_empty(&self) -> bool {
-        self.front == self.rear
-    }
-
-    fn is_full(&self) -> bool {
-        (self.rear + 1) % self.capacity == self.front
-    }
-
-    fn peek(&self) -> Option<&i32> {
-        if self.is_empty() {
-            None
-        } else {
-            Some(&self.data[self.front])
-        }
+        self.rear += 1;
+        self.size += 1;
     }
 }
 
@@ -60,16 +30,11 @@ pub fn init() {
     println!("This is for linear queue concept");
 
     let mut queue_concept = Queue::new(4);
-    queue_concept.enqueue(23);
-    queue_concept.enqueue(34);
-    queue_concept.enqueue(45);
+    queue_concept.add_elem_in_queue(34);
+    queue_concept.add_elem_in_queue(56);
+    queue_concept.add_elem_in_queue(67);
+    queue_concept.add_elem_in_queue(78);
+    queue_concept.add_elem_in_queue(89);
 
-    println!("After enqueuing: {:?}", queue_concept);
-
-    // Demonstrate dequeue
-    if let Some(value) = queue_concept.dequeue() {
-        println!("Dequeued: {}", value);
-    }
-
-    println!("After dequeuing: {:?}", queue_concept);
+    println!("Logging of the queue: {:?}", queue_concept);
 }
