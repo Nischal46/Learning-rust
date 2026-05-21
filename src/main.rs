@@ -21,7 +21,7 @@ fn main() {
     //projects::tictactoe::tictactoe::tictactoe();
     //
     // datastructures::enum_concept::concept1::concept1();
-    datastructures::hashmap_concept::concept::concept();
+    // datastructures::hashmap_concept::concept::concept();
     // datastructures::trait_concept::concept::concept();
     //datastructures::box_concept::concept::concept();
 

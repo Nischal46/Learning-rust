@@ -1,6 +1,6 @@
 #[derive(Debug)]
 struct Queue {
-    data: Vec<i32>,
+    data: Vec<Option<i32>>,
     front: usize,
     rear: usize,
     capacity: usize,
@@ -8,33 +8,62 @@ struct Queue {
 }
 
 impl Queue {
-    fn new(alloc: i32) -> Self {
-        let alloc_capacity = alloc as usize;
+    fn new(allocSize: i32) -> Self {
+        let sizeDeclare = allocSize as usize;
         Queue {
-            data: vec![0; alloc_capacity],
+            data: vec![None; sizeDeclare],
             front: 0,
             rear: 0,
-            capacity: alloc_capacity,
+            capacity: sizeDeclare,
             size: 0,
         }
     }
 
-    fn add_elem_in_queue(&mut self, elem: i32) {
-        self.data[self.rear] = elem;
+    fn is_queue_full(&self) -> bool {
+        self.capacity == self.size
+    }
+
+    fn is_queue_empty(&self) -> bool {
+        self.size == 0
+    }
+
+    fn add_element_in_queue(&mut self, elem: i32) {
+        if self.is_queue_full() {
+            println!("Queue is full. you cannot insert element");
+            return;
+        }
+
+        self.data[self.rear] = Some(elem);
         self.rear += 1;
         self.size += 1;
+    }
+
+    fn remove_element_in_queue(&mut self) {
+        if self.is_queue_empty() {
+            println!("Queue is empty..");
+            return;
+        }
+
+        self.data[self.front] = None;
+        self.front += 1;
+        self.size -= 1;
     }
 }
 
 pub fn init() {
     println!("This is for linear queue concept");
 
-    let mut queue_concept = Queue::new(4);
-    queue_concept.add_elem_in_queue(34);
-    queue_concept.add_elem_in_queue(56);
-    queue_concept.add_elem_in_queue(67);
-    queue_concept.add_elem_in_queue(78);
-    queue_concept.add_elem_in_queue(89);
+    let mut single_queue_concept = Queue::new(3);
+    single_queue_concept.remove_element_in_queue();
+    single_queue_concept.add_element_in_queue(23);
+    single_queue_concept.add_element_in_queue(56);
+    single_queue_concept.add_element_in_queue(67);
+    single_queue_concept.add_element_in_queue(79);
+    single_queue_concept.remove_element_in_queue();
+    single_queue_concept.remove_element_in_queue();
 
-    println!("Logging of the queue: {:?}", queue_concept);
+    println!(
+        "Logging of Single ended queue :-> {:?}",
+        single_queue_concept
+    );
 }

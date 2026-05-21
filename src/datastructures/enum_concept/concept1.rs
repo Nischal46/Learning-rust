@@ -11,6 +11,11 @@ enum Shape {
     Square { length: i32 },
 }
 
+enum Player {
+    Warrior,
+    Captain,
+}
+
 pub fn concept1() {
     println!("This is from inside of other");
     let choosen_role = Role::Admin;
