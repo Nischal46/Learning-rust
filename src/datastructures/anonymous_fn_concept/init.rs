@@ -19,6 +19,7 @@ pub fn init() {
     let exp_fn_call = expensive_fn_calculation();
     println!("Returning response: {}", exp_fn_call);
 
+    // NOTE: Here we had pass function pointer in function parameter
     let accept_string_return = fn_pass_parameter_as_js(expensive_fn_calculation);
     println!(
         "Logging of accept_string_return ----- {}",

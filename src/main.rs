@@ -27,5 +27,6 @@ fn main() {
 
     //datastructures::struct_concept::concept::concept();
     //algorithm::queue::linearqueue::init();
-    datastructures::anonymous_fn_concept::init::init();
+    //datastructures::anonymous_fn_concept::init::init();
+    datastructures::thread_concept::init::init();
 }
