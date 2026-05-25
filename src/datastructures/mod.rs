@@ -1,3 +1,4 @@
+pub mod anonymous_fn_concept;
 pub mod box_concept;
 pub mod enum_concept;
 pub mod hashmap_concept;
