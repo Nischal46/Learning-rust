@@ -1,6 +1,7 @@
 pub mod anonymous_fn_concept;
 pub mod box_concept;
 pub mod enum_concept;
+pub mod generics_concept;
 pub mod hashmap_concept;
 pub mod struct_concept;
 pub mod thread_concept;
