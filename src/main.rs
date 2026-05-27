@@ -26,8 +26,8 @@ fn main() {
     //datastructures::box_concept::concept::concept();
 
     //datastructures::struct_concept::concept::concept();
-    //algorithm::queue::linearqueue::init();
+    algorithm::queue::linearqueue::init();
     //datastructures::anonymous_fn_concept::init::init();
     //datastructures::thread_concept::init::init();
-    datastructures::generics_concept::init::init();
+    //datastructures::generics_concept::init::init();
 }
