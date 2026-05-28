@@ -1,26 +1,29 @@
 #[derive(Debug)]
-enum Character {
-    Attacker,
-    Defenser,
+struct Sport<'a> {
+    title: &'a str,
+    player: Vec<Option<&'a str>>,
+    country: Vec<Option<&'a str>>,
 }
 
-#[derive(Debug)]
-struct Player<'a> {
-    player_character: &'a str,
-    player_health: u8,
+impl<'a> Sport<'a> {
+    fn new(title: &'a str) -> Self {
+        Sport {
+            title: title,
+            player: vec![None; 5],
+            country: vec![None; 3],
+        }
+    }
+
+    fn add_player(&mut self, player_name: &'a str) {
+        self.player.push(Some((player_name)));
+    }
 }
 
 pub fn concept() {
-    println!("This is going to be struct concept");
+    println!("------------------Struct concept ---------------");
+    // NOTE: This is also used to make object
 
-    let player1 = Player {
-        player_character: "attacker",
-        player_health: 100,
-    };
+    let mut init = Sport::new("UFC");
 
-    println!("Logging of the player1 ---- {:?}", player1);
-    println!(
-        "Logging one of the type of the enum ----- {:?}",
-        Character::Attacker
-    );
+    println!("Logging of struct ---{:?}", init);
 }
