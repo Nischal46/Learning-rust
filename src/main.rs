@@ -14,7 +14,7 @@ fn main() {
 
     let choosen_product = Product::Monitor;
 
-    println!("choosen product was: {:?}", choosen_product);
+    //println!("choosen product was: {:?}", choosen_product);
 
     //projects::todo::todo::main_todo();
 
@@ -25,9 +25,9 @@ fn main() {
     // datastructures::trait_concept::concept::concept();
     //datastructures::box_concept::concept::concept();
 
-    datastructures::struct_concept::concept::concept();
+    //datastructures::struct_concept::concept::concept();
     //algorithm::queue::linearqueue::init();
     //datastructures::anonymous_fn_concept::init::init();
-    //datastructures::thread_concept::init::init();
+    datastructures::thread_concept::init::init();
     //datastructures::generics_concept::init::init();
 }
