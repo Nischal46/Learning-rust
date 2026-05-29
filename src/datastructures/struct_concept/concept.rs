@@ -15,7 +15,7 @@ impl<'a> Sport<'a> {
     }
 
     fn add_player(&mut self, player_name: &'a str) {
-        self.player.push(Some((player_name)));
+        self.player.push(Some(player_name));
     }
 }
 
@@ -24,6 +24,8 @@ pub fn concept() {
     // NOTE: This is also used to make object
 
     let mut init = Sport::new("UFC");
+
+    init.add_player("Nischal");
 
     println!("Logging of struct ---{:?}", init);
 }

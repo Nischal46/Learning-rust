@@ -10,10 +10,13 @@ pub fn init() {
         "------------------------------This is for demonstrating of thread concept ------------------------------"
     );
 
-    thread::spawn(|| {
+    let make_async = thread::spawn(|| {
         main_thread_block();
         println!("Finally finished......... after 6 sec");
     });
+
+    //join makes synchronous and make thread to wait
+    make_async.join().unwrap();
 
     println!("This run first due to asynchronaus nature.....");
 }
