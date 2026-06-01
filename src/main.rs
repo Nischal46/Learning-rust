@@ -1,6 +1,6 @@
-mod datastructures;
-//mod projects;
 mod algorithm;
+mod datastructures;
+mod projects;
 
 #[derive(Debug)]
 enum Product {
@@ -18,15 +18,15 @@ fn main() {
 
     //projects::todo::todo::main_todo();
 
+    projects::snake::main();
     //projects::tictactoe::tictactoe::tictactoe();
-    //
     // datastructures::enum_concept::concept1::concept1();
     // datastructures::hashmap_concept::concept::concept();
     // datastructures::trait_concept::concept::concept();
     //datastructures::box_concept::concept::concept();
 
     //datastructures::struct_concept::concept::concept();
-    algorithm::queue::linearqueue::init();
+    // algorithm::queue::linearqueue::init();
     //algorithm::queue::deque::deque_concept();
     //datastructures::anonymous_fn_concept::init::init();
     //datastructures::thread_concept::init::init();
