@@ -21,5 +21,5 @@ fn main() {
     //datastructures::thread_concept::init::init();
     //datastructures::generics_concept::init::init();
 
-    projects::ratatui::start::init();
+    projects::ratatui::init::init();
 }
