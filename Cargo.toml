@@ -9,3 +9,7 @@ crossterm = { version = "0.27", features = ["events"] }
 rand = "0.8"
 color-eyre = "0.6"
 cpal = "0.17.3"
+minifb = "0.28.0"
+nokhwa = "0.10.11"
+image = "0.25.10"
+
