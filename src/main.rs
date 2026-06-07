@@ -22,6 +22,5 @@ fn main() {
     //datastructures::generics_concept::init::init();
 
     //projects::ratatui::init::init();
-    let res = projects::guitartuner::start::init();
-    println!("{:?}", res)
+    projects::guitartuner::start::init();
 }
