@@ -2,7 +2,12 @@ use std::thread;
 use std::time::Duration;
 
 fn main_thread_block() {
-    thread::sleep(Duration::from_secs(6));
+    println!("Please. file start to download ");
+
+    for i in 1..=10 {
+        println!("Downloading => ...... {} %", i * 10);
+        thread::sleep(Duration::from_secs(1));
+    }
 }
 
 pub fn init() {
@@ -12,11 +17,11 @@ pub fn init() {
 
     let make_async = thread::spawn(|| {
         main_thread_block();
-        println!("Finally finished......... after 6 sec");
+        println!("Download complete ......... ");
     });
 
     //join makes synchronous and make thread to wait
     make_async.join().unwrap();
 
-    println!("This run first due to asynchronaus nature.....");
+    println!("Finish task............");
 }
