@@ -20,6 +20,11 @@ pub fn init() {
         println!("Download complete ......... ");
     });
 
+    for i in 1..=10 {
+        println!("Initializing of ui => .......{}%", i * 10);
+        thread::sleep(Duration::from_secs(1));
+    }
+
     //join makes synchronous and make thread to wait
     make_async.join().unwrap();
 
