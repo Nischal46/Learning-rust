@@ -10,6 +10,13 @@ fn main_thread_block() {
     }
 }
 
+fn next_thread() {
+    for i in 1..=100 {
+        println!("Logging from thread internal ... {} %", i);
+        thread::sleep(Duration::from_millis(300));
+    }
+}
+
 pub fn init() {
     println!(
         "------------------------------This is for demonstrating of thread concept ------------------------------"
@@ -25,8 +32,18 @@ pub fn init() {
         thread::sleep(Duration::from_secs(1));
     }
 
+    let another_async = thread::spawn(|| {
+        next_thread();
+        println!(
+            "Finished of the internal thread -------------------------------------------------------------"
+        );
+    });
+
     //join makes synchronous and make thread to wait
     make_async.join().unwrap();
+    another_async
+        .join()
+        .expect("Failed to run the internal thread ...");
 
     println!("Finish task............");
 }
