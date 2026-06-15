@@ -1,49 +1,28 @@
-use std::thread;
-use std::time::Duration;
-
-fn main_thread_block() {
-    println!("Please. file start to download ");
-
-    for i in 1..=10 {
-        println!("Downloading => ...... {} %", i * 10);
-        thread::sleep(Duration::from_secs(1));
-    }
-}
-
-fn next_thread() {
-    for i in 1..=100 {
-        println!("Logging from thread internal ... {} %", i);
-        thread::sleep(Duration::from_millis(300));
-    }
-}
+use std::{thread, time::Duration};
 
 pub fn init() {
-    println!(
-        "------------------------------This is for demonstrating of thread concept ------------------------------"
-    );
+    println!("Thread concept ...");
 
-    let make_async = thread::spawn(|| {
-        main_thread_block();
-        println!("Download complete ......... ");
+    let async_thread_one = thread::spawn(|| {
+        thread_one();
     });
 
-    for i in 1..=10 {
-        println!("Initializing of ui => .......{}%", i * 10);
-        thread::sleep(Duration::from_secs(1));
-    }
-
-    let another_async = thread::spawn(|| {
-        next_thread();
-        println!(
-            "Finished of the internal thread -------------------------------------------------------------"
-        );
+    let async_thread_two = thread::spawn(|| {
+        thread_two();
     });
 
-    //join makes synchronous and make thread to wait
-    make_async.join().unwrap();
-    another_async
-        .join()
-        .expect("Failed to run the internal thread ...");
+    println!("Async behaviour ------- ");
 
-    println!("Finish task............");
+    async_thread_one.join().unwrap();
+    async_thread_two.join().unwrap();
+}
+
+fn thread_one() {
+    thread::sleep(Duration::from_secs(4));
+    println!("Print log after 4 sec");
+}
+
+fn thread_two() {
+    thread::sleep(Duration::from_secs(2));
+    println!("Print log after 2 sec");
 }
