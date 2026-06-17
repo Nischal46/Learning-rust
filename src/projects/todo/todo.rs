@@ -1,90 +1,141 @@
-use std::io;
+use std::{error::Error, io};
 
 use crossterm::{
-    event::EnableMouseCapture,
+    event::{self, Event, KeyCode, KeyEventKind},
     execute,
-    terminal::{EnterAlternateScreen, enable_raw_mode},
+    terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
-use ratatui::{Terminal, prelude::CrosstermBackend};
 
-#[derive(Debug, Clone)]
-struct UserDetails<'a> {
-    name_input: &'a str,
-    email_input: &'a str,
-    contact: &'a str,
-}
+use ratatui::{
+    Terminal,
+    prelude::*,
+    widgets::{Block, Borders, Clear, Paragraph},
+};
 
 #[derive(Debug)]
-struct LinearQueue<'a> {
-    data: Vec<Option<UserDetails<'a>>>,
-    count: usize,
-    front: usize,
-    rear: usize,
-    capacity: usize,
+struct App {
+    show_popup: bool,
+    input: String,
 }
 
-impl<'a> LinearQueue<'a> {
-    fn new(user_inp_size: u8) -> Self {
-        let alloc_size = user_inp_size as usize;
-        LinearQueue {
-            data: vec![None; alloc_size],
-            front: 0,
-            rear: 0,
-            count: 0,
-            capacity: alloc_size,
+impl App {
+    fn new() -> Self {
+        Self {
+            show_popup: true,
+            input: String::new(),
         }
-    }
-
-    fn is_full(&self) -> bool {
-        if self.capacity == self.rear {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    fn is_empty(&self) -> bool {
-        if self.count == 0 {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    fn add_user_in_queue(&mut self, data: UserDetails<'a>) {
-        if self.is_full() {
-            println!("Queue is full............");
-            return;
-        }
-
-        self.data[self.rear] = Some(data);
-        self.rear += 1;
-        self.count += 1;
-    }
-
-    fn remove_user_from_queue(&mut self) {
-        if self.is_empty() {
-            println!("Queue is empty..........");
-            return;
-        }
-
-        self.data[self.front] = None;
-        self.front += 1;
     }
 }
 
-pub fn main_todo() -> Result<()> {
-    // NOTE: This is for seting up of terminal
-    enable_raw_mode();
+pub fn main_todo() -> Result<(), Box<dyn Error>> {
+    enable_raw_mode()?;
 
-    let mut stdot = io::stdout();
+    let mut stdout = io::stdout();
 
-    // NOTE: to capture mouse clicke event
+    execute!(stdout, EnterAlternateScreen)?;
 
-    execute!(stdot, EnterAlternateScreen, EnableMouseCapture)?;
-
-    let backend = CrosstermBackend::new(stdot);
-
+    let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
+
+    let mut app = App::new();
+
+    let res = run_app(&mut terminal, &mut app);
+
+    disable_raw_mode()?;
+
+    execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
+
+    terminal.show_cursor()?;
+
+    if let Err(err) = res {
+        println!("{err:?}");
+    }
+
+    Ok(())
 }
 
+fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<()> {
+    loop {
+        terminal.draw(|f| ui(f, app))?;
+
+        if let Event::Key(key) = event::read()? {
+            if key.kind == KeyEventKind::Press {
+                match key.code {
+                    KeyCode::Esc => return Ok(()),
+
+                    KeyCode::Char(c) => {
+                        if app.show_popup {
+                            app.input.push(c);
+                        }
+                    }
+
+                    KeyCode::Backspace => {
+                        if app.show_popup {
+                            app.input.pop();
+                        }
+                    }
+
+                    KeyCode::Enter => {
+                        if app.show_popup {
+                            app.show_popup = false;
+                        }
+                    }
+
+                    KeyCode::Char('p') => {
+                        app.show_popup = true;
+                    }
+
+                    _ => {}
+                }
+            }
+        }
+    }
+}
+
+fn ui(frame: &mut Frame, app: &App) {
+    let size = frame.area();
+
+    let main = Paragraph::new(format!(
+        "Saved Text: {}\n\nPress P to open popup\nPress ESC to quit",
+        app.input
+    ))
+    .block(Block::default().title("Main Screen").borders(Borders::ALL));
+
+    frame.render_widget(main, size);
+
+    if app.show_popup {
+        let popup_area = centered_rect(60, 20, size);
+
+        frame.render_widget(Clear, popup_area);
+
+        let popup = Paragraph::new(app.input.as_str()).block(
+            Block::default()
+                .title("Type Something")
+                .borders(Borders::ALL),
+        );
+
+        frame.render_widget(popup, popup_area);
+    }
+}
+
+fn centered_rect(percent_x: u16, percent_y: u16, area: Rect) -> Rect {
+    let vertical = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints([
+            Constraint::Percentage((100 - percent_y) / 2),
+            Constraint::Percentage(percent_y),
+            Constraint::Percentage((100 - percent_y) / 2),
+        ])
+        .split(area);
+
+    let horizontal = Layout::default()
+        .direction(Direction::Horizontal)
+        .constraints([
+            Constraint::Percentage((100 - percent_x) / 2),
+            Constraint::Percentage(percent_x),
+            Constraint::Percentage((100 - percent_x) / 2),
+        ])
+        .split(vertical[1]);
+
+    horizontal[1]
+}
