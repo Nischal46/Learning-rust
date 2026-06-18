@@ -5,7 +5,7 @@ mod projects;
 fn main() {
     //println!("choosen product was: {:?}", choosen_product);
 
-    projects::todo::todo::main_todo();
+    //projects::todo::todo::main_todo();
 
     // projects::snake::main();
     //projects::tictactoe::tictactoe::tictactoe();
@@ -18,7 +18,7 @@ fn main() {
     //algorithm::queue::linearqueue::init();
     //algorithm::queue::deque::deque_concept();
     //datastructures::anonymous_fn_concept::init::init();
-    //datastructures::thread_concept::init::init();
+    datastructures::thread_concept::init::init();
     //datastructures::generics_concept::init::init();
 
     //projects::ratatui::init::init();
