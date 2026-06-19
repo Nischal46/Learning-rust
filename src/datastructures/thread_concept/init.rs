@@ -1,31 +1,20 @@
 use std::{thread, time::Duration};
 
 pub fn init() {
-    println!("This is a thread concept ....");
+    //dissecting of the thread concept
 
-    let thread_one = thread::spawn(|| {
-        async_thread_one();
-    });
+    println!("Thread concept in details");
 
-    let thread_two = thread::spawn(|| {
-        async_thread_two();
-    });
-
-    println!("Before async");
-    thread::sleep(Duration::from_secs(4));
-    println!("First of all it block for 4 sec before async");
-
-    println!("Async behaviour....... start here");
-    thread_one.join().expect("Issue in thread one");
-    thread_two.join().expect("Issue in thread two");
-}
-
-fn async_thread_one() {
-    thread::sleep(Duration::from_secs(5));
-    println!("Thread release only after 5 sec");
-}
-
-fn async_thread_two() {
+    println!("Thread blocks for 3 sec");
     thread::sleep(Duration::from_secs(3));
-    println!("Thread release only after 3 sec");
+
+    let async_one_thread = thread::spawn(|| {
+        thread::sleep(Duration::from_secs(1));
+        println!("sleep for 1 sec.........");
+    });
+
+    println!("Easy thread concept knowledge");
+
+    async_one_thread.join().expect("Failed failed");
 }
+
