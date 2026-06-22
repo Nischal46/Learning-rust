@@ -25,4 +25,10 @@ pub fn init() {
         "Logging of accept_string_return ----- {}",
         accept_string_return
     );
+
+    let anonymous_fn_call = || {
+        println("Hello hello");
+    };
+
+    anonymous_fn_call();
 }
