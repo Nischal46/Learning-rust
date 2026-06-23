@@ -4,9 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-ratatui = "0.30.0" # Or the latest version available
-crossterm = { version = "0.27", features = ["events"] }
 rand = "0.8"
-color-eyre = "0.6"
-cpal = "0.17.3"
+
 

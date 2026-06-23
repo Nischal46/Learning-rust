@@ -1,26 +1,33 @@
-mod algorithm;
-mod datastructures;
-mod projects;
+fn closure_concept(x: &str, y: i32) {
+    println!("This is closure concept fn");
+    println!(
+        "From anonymous fn clousre getting values x: {} and y: {}",
+        x, y
+    );
+}
+
+enum FootballPlayer {
+    Messi,
+    Ronaldo,
+    Neymar,
+}
 
 fn main() {
-    //println!("choosen product was: {:?}", choosen_product);
+    println!("Doing rust from beginning");
 
-    //projects::todo::todo::main_todo();
+    let anonymous_fn_call = |x, y| {
+        closure_concept(x, y);
+    };
 
-    // projects::snake::main();
-    //projects::tictactoe::tictactoe::tictactoe();
-    // datastructures::enum_concept::concept1::concept1();
-    // datastructures::hashmap_concept::concept::concept();
-    // datastructures::trait_concept::concept::concept();
-    //datastructures::box_concept::concept::concept();
+    let result = anonymous_fn_call("nischal", 97);
 
-    //datastructures::struct_concept::concept::concept();
-    //algorithm::queue::linearqueue::init();
-    //algorithm::queue::deque::deque_concept();
-    datastructures::anonymous_fn_concept::init::init();
-    //datastructures::thread_concept::init::init();
-    //datastructures::generics_concept::init::init();
+    let choosing_player = FootballPlayer::Messi;
 
-    //projects::ratatui::init::init();
-    //projects::guitartuner::start::init();
+    match choosing_player {
+        FootballPlayer::Messi => println!("He is from Argentina"),
+        _ => println!("Not in the list"),
+    }
+
+    let wrap_value = Some("Internal wrap value");
+    println!("Logging of the wrap value: {}", wrap_value.unwrap());
 }
