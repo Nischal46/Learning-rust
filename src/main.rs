@@ -1,33 +1,27 @@
-fn closure_concept(x: &str, y: i32) {
-    println!("This is closure concept fn");
-    println!(
-        "From anonymous fn clousre getting values x: {} and y: {}",
-        x, y
-    );
-}
-
-enum FootballPlayer {
-    Messi,
-    Ronaldo,
-    Neymar,
-}
-
 fn main() {
-    println!("Doing rust from beginning");
+    println!("This is the main entry of the app");
 
-    let anonymous_fn_call = |x, y| {
-        closure_concept(x, y);
-    };
+    let product = Product::new("Laptop", 68000);
 
-    let result = anonymous_fn_call("nischal", 97);
+    let result = product.discount();
+    println!("Result of discount price of the product: {}", result);
+}
 
-    let choosing_player = FootballPlayer::Messi;
+struct Product<'a> {
+    title: &'a str,
+    price: i32,
+}
 
-    match choosing_player {
-        FootballPlayer::Messi => println!("He is from Argentina"),
-        _ => println!("Not in the list"),
+impl<'a> Product<'a> {
+    //NOTE: mark as constructor fn
+    fn new(title: &'a str, price: i32) -> Self {
+        Self { title, price }
     }
 
-    let wrap_value = Some("Internal wrap value");
-    println!("Logging of the wrap value: {}", wrap_value.unwrap());
+    fn discount(&self) -> String {
+        let discount_amount = (self.price / 100) * 10;
+        let discount_price = self.price - discount_amount;
+
+        format!("Discount price: {}", discount_price)
+    }
 }
