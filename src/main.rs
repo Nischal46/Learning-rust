@@ -1,27 +1,32 @@
+//today concept for Cell that can change the object without making variable mut
+
+use std::cell::Cell;
+
+#[derive(Debug)]
+struct OSTask<'a> {
+    task: &'a str,
+    queue_priority: Cell<u8>,
+}
+
+impl<'a> OSTask<'a> {
+    fn new(task_inp: &'a str, task_priority: u8) -> Self {
+        Self {
+            task: task_inp,
+            queue_priority: Cell::new(task_priority),
+        }
+    }
+
+    fn change_queue_priority(&self) {
+        self.queue_priority.set(2);
+    }
+}
+
 fn main() {
-    println!("This is the main entry of the app");
+    let task_definer = OSTask::new("Gnome runner", 1);
+    println!("Before updating by cell");
+    println!("Logging os task: {:?}", task_definer);
 
-    let product = Product::new("Laptop", 68000);
-
-    let result = product.discount();
-    println!("Result of discount price of the product: {}", result);
-}
-
-struct Product<'a> {
-    title: &'a str,
-    price: i32,
-}
-
-impl<'a> Product<'a> {
-    //NOTE: mark as constructor fn
-    fn new(title: &'a str, price: i32) -> Self {
-        Self { title, price }
-    }
-
-    fn discount(&self) -> String {
-        let discount_amount = (self.price / 100) * 10;
-        let discount_price = self.price - discount_amount;
-
-        format!("Discount price: {}", discount_price)
-    }
+    println!("After updating by cell");
+    task_definer.change_queue_priority();
+    println!("Logging os task: {:?}", task_definer);
 }
