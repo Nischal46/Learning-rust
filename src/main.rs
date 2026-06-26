@@ -1,32 +1,27 @@
-//today concept for Cell that can change the object without making variable mut
-
-use std::cell::Cell;
-
-#[derive(Debug)]
-struct OSTask<'a> {
-    task: &'a str,
-    queue_priority: Cell<u8>,
-}
-
-impl<'a> OSTask<'a> {
-    fn new(task_inp: &'a str, task_priority: u8) -> Self {
-        Self {
-            task: task_inp,
-            queue_priority: Cell::new(task_priority),
-        }
-    }
-
-    fn change_queue_priority(&self) {
-        self.queue_priority.set(2);
-    }
-}
-
 fn main() {
-    let task_definer = OSTask::new("Gnome runner", 1);
-    println!("Before updating by cell");
-    println!("Logging os task: {:?}", task_definer);
+    println!("Main entry point app");
 
-    println!("After updating by cell");
-    task_definer.change_queue_priority();
-    println!("Logging os task: {:?}", task_definer);
+    let result: String;
+
+    let output: &'static str;
+
+    let answer: &str;
+
+    {
+        let inside_val = String::from("Hello hello");
+        result = inside_val;
+
+        output = "value generated from inside of scope";
+
+        answer = "not static";
+    }
+
+    println!("Logging reult val: {}", result);
+    println!("Logtging output val: {}", output);
+    println!("Logging answer val: {}", answer);
+}
+
+fn check_static(inp: &mut str) -> &str {
+    inp = "Hello form fn scope";
+    return inp;
 }
