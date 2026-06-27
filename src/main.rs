@@ -1,27 +1,42 @@
-fn main() {
-    println!("Main entry point app");
-
-    let result: String;
-
-    let output: &'static str;
-
-    let answer: &str;
-
-    {
-        let inside_val = String::from("Hello hello");
-        result = inside_val;
-
-        output = "value generated from inside of scope";
-
-        answer = "not static";
-    }
-
-    println!("Logging reult val: {}", result);
-    println!("Logtging output val: {}", output);
-    println!("Logging answer val: {}", answer);
+#[derive(Debug)]
+struct Student<'a> {
+    name: &'a str,
+    email: &'a str,
 }
 
-fn check_static(inp: &mut str) -> &str {
-    inp = "Hello form fn scope";
-    return inp;
+#[derive(Debug)]
+struct StudentArray<'a> {
+    data: Vec<Student<'a>>,
+    total_Students: usize,
+}
+
+impl<'a> StudentArray<'a> {
+    fn add(&mut self, inp: Student<'a>) {
+        self.data.push(inp);
+        self.total_Students += 1;
+    }
+}
+
+fn main() {
+    println!("-----using cell to change specific data of object------");
+
+    let mut student_array = StudentArray {
+        data: Vec::with_capacity(5),
+        total_Students: 0,
+    };
+
+    let student_one = Student {
+        name: "Nischal",
+        email: "nischal@dev.com",
+    };
+
+    let student_two = Student {
+        name: "Baniya",
+        email: "baniya@dev.com",
+    };
+
+    student_array.add(student_one);
+    student_array.add(student_two);
+
+    println!("Logging of the vec: {:?}", student_array);
 }
