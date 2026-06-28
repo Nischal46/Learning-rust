@@ -1,42 +1,35 @@
-#[derive(Debug)]
-struct Student<'a> {
-    name: &'a str,
-    email: &'a str,
-}
-
-#[derive(Debug)]
-struct StudentArray<'a> {
-    data: Vec<Student<'a>>,
-    total_Students: usize,
-}
-
-impl<'a> StudentArray<'a> {
-    fn add(&mut self, inp: Student<'a>) {
-        self.data.push(inp);
-        self.total_Students += 1;
-    }
-}
+use std::{ops::AddAssign, sync::Mutex, thread, time::Duration};
 
 fn main() {
-    println!("-----using cell to change specific data of object------");
+    println!("Working in closure fn.........");
 
-    let mut student_array = StudentArray {
-        data: Vec::with_capacity(5),
-        total_Students: 0,
+    let mutex_var = Mutex::new(0u16);
+
+    let fn_call = || {
+        let mut mut_ref = mutex_var.lock().unwrap();
+        for i in 1..3 {
+            println!("Closure fn runs... {} times", i);
+            mut_ref.add_assign(i);
+            thread::sleep(Duration::from_secs(3));
+        }
+
+        println!("Printing value of mutex {:?}", mut_ref);
     };
 
-    let student_one = Student {
-        name: "Nischal",
-        email: "nischal@dev.com",
+    let fn_call2 = || {
+        println!("waitinf for closure 1 to finish");
+        let mut another_mut_ref = mutex_var.lock().unwrap();
+        println!("Closure fn 2");
+
+        for i in 1..8 {
+            println!("Closure fn 2 runs .... {} times", i);
+            another_mut_ref.add_assign(i);
+        }
+
+        println!("Priniting value of mutex .... {:?}", another_mut_ref);
     };
 
-    let student_two = Student {
-        name: "Baniya",
-        email: "baniya@dev.com",
-    };
-
-    student_array.add(student_one);
-    student_array.add(student_two);
-
-    println!("Logging of the vec: {:?}", student_array);
+    fn_call();
+    fn_call2();
 }
+
