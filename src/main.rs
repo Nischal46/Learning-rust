@@ -1,28 +1,18 @@
-enum Continent {
-    Asia,
-    Africa,
-    Europe,
-    SouthAmerica,
-    NorthAmerica,
-}
+use std::thread;
 
-#[derive(Debug)]
-struct Country<'a> {
-    country: &'a str,
-    continent: &'a str,
-}
+fn main (){
+    println!("This is the concept of the rust write in vscode by vim");
 
-#[derive(Debug)]
-struct Team<'a> {
-    data: Vec<Country<'a>>,
-    count: usize,
-}
+    println!("Writing of the thread concept");
 
-fn main() {
-    let country_one = Country {
-        country: "Japan",
-        continent: "Asia",
-    };
+    let thread_one = thread::spawn(|| async {
+        println!("This is thread one");
+    });
 
-    println!("{:?}", country_one);
+    let thread_two = thread::spawn(|| async {
+        println!("This is thread two");
+    });
+
+    thread_one.join().unwrap();
+    thread_two.join().unwrap();
 }
