@@ -1,46 +1,46 @@
-use std::{io, thread, time::Duration};
+use std::io;
 
-fn board_display(board: &[[char; 3]]) {
-    println!("Initializing Board...");
-    for row in board.iter() {
+fn board_initialization(board: &Vec<[char; 3]>){
+    for row in board {
         println!("{:?}", row);
     }
 }
 
-fn option(player: &mut char) {
-    match player {
-        'X' => {
-            println!("Passes {}", player);
-            *player = 'Y';
+fn take_user_inp() -> i8 {
+    let mut user_inp = String::new();
+    io::stdin().read_line(&mut user_inp).expect("Failed to take user input");
+
+    match user_inp.trim().parse::<i8>() {
+        Ok(num) => {
+            if num >= 1 && num <=9 {
+                println!("Valid integer. You had type {}", num);
+                num
+            }
+            else {
+                println!("Please type a number in between 1 to 9");
+                take_user_inp()
+            }
         }
-        'Y' => {
-            println!("Passes {}", player);
-            *player = 'X';
-        },
-        _ => println!("Jpt")
+        Err(_) => {
+            println!("Invalid integer. the given input is not integer\nPlease type integer");
+            take_user_inp()
+        }
     }
 }
 
-fn take_input_from_user() -> Result<u8, Box<dyn std::error::Error>>{
-    println!("Please give input: ");
-    let mut input = String::new();
-    io::stdin().read_line(&mut  input).expect("Failed to get input data");
-    let num_inp = input.trim().parse::<u8>()?;
+fn assign_value_in_board(board: &mut Vec<[char; 3]>, res: i8) {
 
-    println!("User had type: {}", num_inp);
-    num_inp
 }
 
 pub fn init() {
+    println!("Initializing of tic tac toe ....."); 
     let mut board = vec![['_'; 3]; 3];
-    let mut count = 1;
-    let mut player_turn = 'X';
-    board[0][0] = player_turn;
-    board_display(&board);
+    board_initialization(&board);
+    let player = 'X';
 
     loop {
-        option(&mut player_turn);
-        take_input_from_user();
+        let response = take_user_inp();
+        assign_value_in_board(&mut board, response);
     }
-   
+    
 }
