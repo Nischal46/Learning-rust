@@ -28,19 +28,32 @@ fn take_user_inp() -> i8 {
     }
 }
 
-fn assign_value_in_board(board: &mut Vec<[char; 3]>, res: i8) {
-
+fn assign_value_in_board(board: &mut Vec<[char; 3]>, res: i8, player: &mut char) {
+    match res {
+        1 => {
+            board[0][0] = *player;
+        }
+        2 => {
+            board[0][1] = *player;
+        }
+        3 => {
+            board[0][2] = *player;
+        }
+        _ => {
+            println!("Out of the input scope")
+        }
+    }
 }
 
 pub fn init() {
     println!("Initializing of tic tac toe ....."); 
     let mut board = vec![['_'; 3]; 3];
     board_initialization(&board);
-    let player = 'X';
+    let mut player = 'X';
 
     loop {
         let response = take_user_inp();
-        assign_value_in_board(&mut board, response);
+        assign_value_in_board(&mut board, response, &mut player);
     }
     
 }
