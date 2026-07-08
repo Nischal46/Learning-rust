@@ -28,16 +28,61 @@ fn take_user_inp() -> i8 {
     }
 }
 
+fn mutate_player(player: &mut char) {
+    if *player == 'X' {
+        *player = 'O';
+    }
+    else if *player == 'O' {
+        *player = 'X';
+    }
+}
+
+fn check_cell_availble(board: &mut Vec<[char; 3]>, first_index: usize, second_index: usize, player: &mut char) {
+    if board[first_index][second_index] != '_' {
+        println!("Cell already occupied.......");
+        return;
+    } else {
+        board[first_index][second_index] = *player;
+        // mutate_player(player)
+    }
+}
+
 fn assign_value_in_board(board: &mut Vec<[char; 3]>, res: i8, player: &mut char) {
     match res {
         1 => {
-            board[0][0] = *player;
+            check_cell_availble(&mut *board, 0, 0, player);
         }
         2 => {
-            board[0][1] = *player;
+            check_cell_availble(&mut *board, 0, 1, player);
+
         }
         3 => {
-            board[0][2] = *player;
+            check_cell_availble(&mut *board, 0, 2, player);
+
+        }
+        4 => {
+            check_cell_availble(&mut *board, 1, 0, player);
+
+        }
+        5 => {
+            check_cell_availble(&mut *board, 1, 1, player);
+
+        }
+        6 => {
+            check_cell_availble(&mut *board, 1, 2, player);
+
+        }
+        7 => {
+            check_cell_availble(&mut *board, 2, 0, player);
+
+        }
+        8 => {
+            check_cell_availble(&mut *board, 2, 1, player);
+
+        }
+        9 => {
+            check_cell_availble(&mut *board, 2, 2, player);
+
         }
         _ => {
             println!("Out of the input scope")
@@ -45,15 +90,35 @@ fn assign_value_in_board(board: &mut Vec<[char; 3]>, res: i8, player: &mut char)
     }
 }
 
+fn winning_possibility(board: &Vec<[char; 3]>, player: &char) {
+    if board[0][0] == *player && board[0][1] == *player && board[0][2] == *player {
+        println!("First column solved.... {} winner", player);
+        return;    
+    }
+}
+
+fn check_winner(board: &Vec<[char; 3]>, player: &char) {
+    println!("Logging player {}", player);
+    // if board[0][0] == *player && board[0][1] == *player && board[0][2] == *player {
+    //     println!("First column solved.... {} winner", player);
+    //     return;
+    // }
+
+    winning_possibility(&board, &player);
+}
+
 pub fn init() {
     println!("Initializing of tic tac toe ....."); 
     let mut board = vec![['_'; 3]; 3];
-    board_initialization(&board);
     let mut player = 'X';
-
+    
     loop {
+        board_initialization(&board);
         let response = take_user_inp();
         assign_value_in_board(&mut board, response, &mut player);
+        check_winner(&board, &player);
+        mutate_player(&mut player);
+
     }
     
 }
