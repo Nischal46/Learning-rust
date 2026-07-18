@@ -118,7 +118,6 @@ pub fn init() {
         assign_value_in_board(&mut board, response, &mut player);
         check_winner(&board, &player);
         mutate_player(&mut player);
-
     }
     
 }
