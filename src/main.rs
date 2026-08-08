@@ -1,10 +1,11 @@
 use std::{thread, time::Duration};
-mod projects;
 mod concepts;
 mod dsa;
+mod projects;
 
-fn main (){
+fn main() {
     // projects::tictactoe::init();
-    // concepts::multithreaded::init();
-    dsa::doubelinkedlist::init();
+    concepts::multithreaded::init();
+    //dsa::doubelinkedlist::init();
+    // dsa::singlelinkedlist::init();
 }
