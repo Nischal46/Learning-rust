@@ -6,7 +6,9 @@ mod projects;
 fn main() {
     // projects::tictactoe::init();
     //concepts::multithreaded::init();
-    concepts::smartpointer::init();
+    //conceptsoncepts::smartpointer::init();
     //dsa::doubelinkedlist::init();
     // dsa::singlelinkedlist::init();
+
+    dsa::arrayconcept::init();
 }
