@@ -1,50 +1,73 @@
 #[derive(Debug)]
-struct ArrayStructure {
+struct ArrayData {
     data: [u32; 5],
 }
 
-impl ArrayStructure {
-    // NOTE find highest element in array
-    fn find_highest_number_in_array(&self) {
-        let mut highest: u32 = 0;
-        for &num in &self.data {
+impl ArrayData {
+    fn find_highest_data_in_array(&self) -> u32 {
+        let mut highest = 0;
+        for &num in self.data.iter() {
             if highest < num {
                 highest = num;
             }
         }
-
-        println!("{} is highest among {:?}", highest, &self.data);
+        return highest;
     }
 
-    // NOTE search element in array
-    fn search_element_in_array(&self, element_to_find: u32) -> Option<usize> {
-        // for (index, &num) in self.data.iter().enumerate() {
-        //     if num == element_to_find {
-        //         println!("{} found at: {}", num, index);
-        //         break;
-        //     } else {
-        //         println!("{} not found", num);
-        //     }
-        // }
+    fn check_is_sorted_or_not(&self) -> bool {
+        let mut starting_var = 0;
+        let mut result = true;
+        for &num in self.data.iter() {
+            if num > starting_var {
+                starting_var = num;
+                result = true;
+            } else {
+                result = false;
+            }
+        }
 
+        return result;
+    }
+
+    fn find_index_with_for_loop(&self, element_to_find: u32) -> Option<usize> {
+        for (index, &num) in self.data.iter().enumerate() {
+            if element_to_find == num {
+                return Some(index);
+            }
+        }
+        None
+    }
+
+    fn find_index_with_position_built_in_method(&self, element_to_find: u32) -> Option<usize> {
         self.data.iter().position(|&num| num == element_to_find)
     }
 }
 
 pub fn init() {
-    println!("Array related questions");
+    println!("-------- Array & its related question ------------");
 
-    let arraydata = ArrayStructure {
-        data: [1, 2, 10, 4, 5],
+    let passing_array_data_one = ArrayData {
+        //data: [12, 56, 23, 43, 8],
+        data: [1, 2, 4, 5, 7],
     };
 
-    arraydata.find_highest_number_in_array();
-    arraydata.search_element_in_array(10);
+    let highest_number = passing_array_data_one.find_highest_data_in_array();
+    println!("Logging highest element in array: {}", highest_number);
 
-    match arraydata.search_element_in_array(4) {
-        Some(index) => println!("Element found at {}", index),
-        None => println!("Element not found"),
+    let arraysorted_or_not = passing_array_data_one.check_is_sorted_or_not();
+    println!("Logging array sorted or not: {}", arraysorted_or_not);
+
+    let element_to_find = passing_array_data_one.find_index_with_for_loop(57);
+    println!(
+        "Logging index of element data position in array: {:?}",
+        element_to_find
+    );
+
+    let element_to_find_by_builtin =
+        passing_array_data_one.find_index_with_position_built_in_method(12);
+
+    match element_to_find_by_builtin {
+        Some(ind) => println!("Yeah find that data in index: {}", ind),
+        None => println!("Sorry dude. element not found"),
     }
-
-    println!("Logging of the array data: {:?}", arraydata);
 }

@@ -4,6 +4,7 @@ mod dsa;
 mod exercises;
 mod projects;
 
+#[allow(dead_code)]
 fn main() {
     // projects::tictactoe::init();
     //concepts::multithreaded::init();
