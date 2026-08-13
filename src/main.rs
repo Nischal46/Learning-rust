@@ -14,4 +14,6 @@ fn main() {
 
     //dsa::arrayconcept::init();
     exercises::arrayquestions::init();
+    println!("-----------------------------------");
+    exercises::vecalternatetoarray::init();
 }
