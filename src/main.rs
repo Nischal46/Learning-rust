@@ -12,7 +12,7 @@ fn main() {
     //dsa::doubelinkedlist::init();
     // dsa::singlelinkedlist::init();
 
-    //dsa::arrayconcept::init();
+    dsa::arrayconcept::init();
     exercises::arrayquestions::init();
     println!("-----------------------------------");
     exercises::vecalternatetoarray::init();
