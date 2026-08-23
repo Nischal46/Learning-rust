@@ -1,73 +1,54 @@
 #[derive(Debug)]
-struct ArrayData {
-    data: [u32; 5],
+struct ArrayContainer {
+    data: [Option<u32>; 5],
 }
 
-impl ArrayData {
-    fn find_highest_data_in_array(&self) -> u32 {
-        let mut highest = 0;
-        for &num in self.data.iter() {
-            if highest < num {
-                highest = num;
-            }
-        }
-        return highest;
+impl ArrayContainer {
+    fn sort() {
+        println!("This is sorting of the method");
     }
 
-    fn check_is_sorted_or_not(&self) -> bool {
-        let mut starting_var = 0;
-        let mut result = true;
-        for &num in self.data.iter() {
-            if num > starting_var {
-                starting_var = num;
-                result = true;
-            } else {
-                result = false;
-            }
+    fn check_array_container_full(&self) -> bool {
+        if self.data.contains(&None) {
+            println!("Array still have empty slot");
+            false
+        } else {
+            println!("Array is full");
+            true
         }
-
-        return result;
     }
 
-    fn find_index_with_for_loop(&self, element_to_find: u32) -> Option<usize> {
-        for (index, &num) in self.data.iter().enumerate() {
-            if element_to_find == num {
-                return Some(index);
-            }
-        }
-        None
-    }
+    fn add_data_in_Array_container(&mut self, newdata: u32) {
+        if self.check_array_container_full() != true {
+            println!("still remaining");
 
-    fn find_index_with_position_built_in_method(&self, element_to_find: u32) -> Option<usize> {
-        self.data.iter().position(|&num| num == element_to_find)
+            for slot in self.data.iter_mut() {
+                if slot.is_none() {
+                    *slot = Some(newdata);
+                }
+            }
+        } else {
+            println!("full full")
+        }
     }
 }
 
 pub fn init() {
-    println!("-------- Array & its related question ------------");
+    println!("This is for solving of the exercises in array for rust");
 
-    let passing_array_data_one = ArrayData {
-        //data: [12, 56, 23, 43, 8],
-        data: [1, 2, 4, 5, 7],
+    let mut array_container = ArrayContainer {
+        data: [Some(1), Some(2), Some(3), Some(4), None],
     };
 
-    let highest_number = passing_array_data_one.find_highest_data_in_array();
-    println!("Logging highest element in array: {}", highest_number);
+    //array_container.data[4] = Some(4);
 
-    let arraysorted_or_not = passing_array_data_one.check_is_sorted_or_not();
-    println!("Logging array sorted or not: {}", arraysorted_or_not);
+    println!("Logging of th array container: {:?}", array_container.data);
 
-    let element_to_find = passing_array_data_one.find_index_with_for_loop(57);
+    array_container.check_array_container_full();
+    array_container.add_data_in_Array_container(45);
+
     println!(
-        "Logging index of element data position in array: {:?}",
-        element_to_find
+        "After mutating new data in container --- {:?}",
+        array_container.data
     );
-
-    let element_to_find_by_builtin =
-        passing_array_data_one.find_index_with_position_built_in_method(12);
-
-    match element_to_find_by_builtin {
-        Some(ind) => println!("Yeah find that data in index: {}", ind),
-        None => println!("Sorry dude. element not found"),
-    }
 }
