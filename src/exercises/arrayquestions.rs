@@ -15,6 +15,29 @@ impl ArrayContainer {
             }
         }
     }
+
+    fn maximum_element_in_array(&self) {
+        let mut maximum_element = &self.data[0];
+        for i in self.data.iter() {
+            if maximum_element.unwrap() < i.unwrap() {
+                maximum_element = i
+            }
+        }
+
+        println!("maximum element: {}", maximum_element.unwrap());
+    }
+
+    fn minimum_element_in_array(&self) {
+        let mut minimun_element = &self.data[0];
+
+        for i in self.data.iter() {
+            if minimun_element.unwrap() > i.unwrap() {
+                minimun_element = i;
+            }
+        }
+
+        println!("minimum element: {}", minimun_element.unwrap());
+    }
 }
 
 pub fn init() {
@@ -26,4 +49,6 @@ pub fn init() {
     array_container.sorting_data();
 
     println!("Logging after sorting: {:?}", array_container);
+    array_container.maximum_element_in_array();
+    array_container.minimum_element_in_array();
 }
