@@ -1,54 +1,108 @@
 #[derive(Debug)]
-struct ArrayContainer {
-    data: [Option<u32>; 5],
+struct ProductDetails<'a> {
+    title: &'a str,
+    brand: &'a str,
+    price: u32,
 }
 
-impl ArrayContainer {
-    fn sideline_zero_At_last(&mut self) {}
+#[derive(Debug)]
+struct ArrayContainer<'a> {
+    data: [ProductDetails<'a>; 5],
+}
 
-    fn sorting_data(&mut self) {
-        for i in 0..self.data.len() {
-            for j in (0..self.data.len() - 1 - i) {
-                if self.data[j].unwrap() > self.data[j + 1].unwrap() {
-                    self.data.swap(j, j + 1);
+impl<'a> ArrayContainer<'a> {
+    fn sorting_by_highest_to_lowest_pricing(&mut self) {
+        let total_length = self.data.len();
+        for i in 0..total_length {
+            for j in 0..total_length - 1 - i {
+                if self.data[j].price < self.data[j + 1].price {
+                    self.data.swap(j + 1, j);
                 }
             }
         }
+
+        println!("After sorting highest to lowest: {:?}", self.data);
     }
 
-    fn maximum_element_in_array(&self) {
-        let mut maximum_element = &self.data[0];
-        for i in self.data.iter() {
-            if maximum_element.unwrap() < i.unwrap() {
-                maximum_element = i
+    fn sorting_by_lowest_to_highest_pricing(&mut self) {
+        let total_length = self.data.len();
+        for i in 0..total_length {
+            for j in 0..total_length - 1 - i {
+                if self.data[j].price > self.data[j + 1].price {
+                    self.data.swap(j + 1, j);
+                }
             }
         }
 
-        println!("maximum element: {}", maximum_element.unwrap());
+        println!("After sorting lowest to highest: {:?}", self.data);
     }
 
-    fn minimum_element_in_array(&self) {
-        let mut minimun_element = &self.data[0];
+    fn reverse_array_without_extra_space(&mut self) {
+        for i in self.data.iter().rev() {
+            println!("{:?}", i);
+        }
+    }
 
-        for i in self.data.iter() {
-            if minimun_element.unwrap() > i.unwrap() {
-                minimun_element = i;
+    fn expensive_items(&self) {
+        let mut extract_expensive_items = vec![];
+
+        for item in self.data.iter() {
+            if item.price > 15000 {
+                extract_expensive_items.push(item);
             }
         }
 
-        println!("minimum element: {}", minimun_element.unwrap());
+        println!("Extracting expensive items: {:?}", extract_expensive_items);
+    }
+
+    fn total_expenses_of_item(&self) {
+        let mut total = 0;
+
+        for item in self.data.iter() {
+            total += item.price;
+        }
+
+        println!("Finding total cost of inventory of products: {}", total);
     }
 }
 
 pub fn init() {
+    println!("This is what we solve array related questions thoroughly");
     let mut array_container = ArrayContainer {
-        data: [Some(2), Some(5), Some(1), Some(4), Some(3)],
+        data: [
+            ProductDetails {
+                title: "Laptop",
+                brand: "DELL",
+                price: 68000,
+            },
+            ProductDetails {
+                title: "Monitor",
+                brand: "BENQ",
+                price: 20000,
+            },
+            ProductDetails {
+                title: "Mouse",
+                brand: "Fantech",
+                price: 1500,
+            },
+            ProductDetails {
+                title: "Keyboard",
+                brand: "Eyoso",
+                price: 5000,
+            },
+            ProductDetails {
+                title: "Cooler",
+                brand: "Nothing",
+                price: 2200,
+            },
+        ],
     };
 
-    println!("Logging of the array: {:?}", array_container);
-    array_container.sorting_data();
+    println!("Logging of the array container: {:#?}", array_container);
 
-    println!("Logging after sorting: {:?}", array_container);
-    array_container.maximum_element_in_array();
-    array_container.minimum_element_in_array();
+    array_container.reverse_array_without_extra_space();
+    array_container.sorting_by_highest_to_lowest_pricing();
+    array_container.sorting_by_lowest_to_highest_pricing();
+    array_container.expensive_items();
+    array_container.total_expenses_of_item();
 }
