@@ -1,27 +1,40 @@
-struct ProductInventory<'a> {
-    data: [Product<'a>; 6],
+#[derive(Debug)]
+struct Product {
+    title: String,
+    brand: String,
+}
+
+fn create_product() -> Product {
+    let title = String::from("Laptop");
+    let brand = String::from("BENQ");
+
+    let product_details = Product {
+        title: title,
+        brand: brand,
+    };
+
+    product_details
 }
 
 #[derive(Debug)]
-struct Product<'a> {
+struct ProductStr<'a> {
     title: &'a str,
     brand: &'a str,
-    price: u32,
 }
 
-fn create_product() -> Product<'static> {
+fn create_product_Str() -> ProductStr<'static> {
     let title = "Laptop";
-    let brand = "DELL";
-    let price = 68000;
+    let brand = "Nothing";
 
-    Product {
-        title,
-        brand,
-        price,
-    }
+    let product_str = ProductStr { title, brand };
+
+    product_str
 }
 
 pub fn init() {
-    let product_create = create_product();
-    println!("Logging of the product create: {:?}", product_create);
+    let response_from_product = create_product();
+    println!("Response returning from : {:?}", create_product());
+
+    let proct_str = create_product_Str();
+    println!("Response of str: {:?}", proct_str);
 }
