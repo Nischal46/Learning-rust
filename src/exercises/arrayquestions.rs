@@ -1,40 +1,47 @@
 #[derive(Debug)]
-struct Product {
-    title: String,
-    brand: String,
-}
-
-fn create_product() -> Product {
-    let title = String::from("Laptop");
-    let brand = String::from("BENQ");
-
-    let product_details = Product {
-        title: title,
-        brand: brand,
-    };
-
-    product_details
-}
-
-#[derive(Debug)]
-struct ProductStr<'a> {
+struct Accessories<'a> {
     title: &'a str,
+    price: &'a str,
     brand: &'a str,
 }
 
-fn create_product_Str() -> ProductStr<'static> {
-    let title = "Laptop";
-    let brand = "Nothing";
+#[derive(Debug)]
+struct ArrayContainer<'a> {
+    data: [Option<Accessories<'a>>; 5],
+}
 
-    let product_str = ProductStr { title, brand };
+impl<'a> ArrayContainer<'a> {
+    fn init() -> Self {
+        // Self {
+        //     data: [Some(Accessories {
+        //         title: "Lovely laptop",
+        //         price: "68000",
+        //         brand: "Dell",
+        //     }); 5],
+        // }
+        Self {
+            data: std::array::from_fn(|_| None),
+        }
+    }
 
-    product_str
+    fn add_data_in_specific_index(&mut self) {
+        for (ind, it) in self.data.iter_mut().enumerate() {
+            if ind == 2 {
+                *it = Some(Accessories {
+                    title: "Lovely my laptop",
+                    price: "68000",
+                    brand: "DELL",
+                })
+            }
+        }
+    }
 }
 
 pub fn init() {
-    let response_from_product = create_product();
-    println!("Response returning from : {:?}", create_product());
+    println!("This revision would contain array related solutions");
 
-    let proct_str = create_product_Str();
-    println!("Response of str: {:?}", proct_str);
+    let mut array_container = ArrayContainer::init();
+    println!("Logging of the array container:");
+    println!("{:?}", array_container);
+    array_container.add_data_in_specific_index();
 }
