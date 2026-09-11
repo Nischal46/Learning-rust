@@ -6,5 +6,5 @@ mod projects;
 
 #[allow(dead_code)]
 fn main() {
-    projects::guitartuner::inti();
+    projects::guitartuner::init();
 }
