@@ -9,8 +9,8 @@ pub fn init() {
     let mic = host.default_input_device().expect("No mic found");
     let speaker = host.default_output_device().expect("No speaker found");
 
-    let mic_config = mic.default_input_config().unwrap().into();
-    let speaker_config = speaker.default_output_config().unwrap().into();
+    let mic_config: cpal::StreamConfig = mic.default_input_config().unwrap().into();
+    let speaker_config: cpal::StreamConfig = speaker.default_output_config().unwrap().into();
 
     // 2. Create a Thread-Safe Storage Buffer
     // Arc allows multiple owners (threads) to share the data.
@@ -26,7 +26,7 @@ pub fn init() {
     println!("Recording for 3 seconds...");
     let input_stream = mic
         .build_input_stream(
-            mic_config,
+            &mic_config,
             move |data: &[f32], _: &_| {
                 // Every time the mic hears something, lock the storage and save the data
                 recording_storage.lock().unwrap().extend_from_slice(data);
