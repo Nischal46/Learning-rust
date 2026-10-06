@@ -1,12 +1,6 @@
-use std::{thread, time::Duration};
-// mod concepts;
-mod dsa;
-mod exercises;
-//mod projects;
+mod datatype;
 
-#[allow(dead_code)]
 fn main() {
-    exercises::arrayquestions::init();
-    dsa::arrayconcept::init();
+    println!("This is the entry point");
+    datatype::array::init();
 }
-
