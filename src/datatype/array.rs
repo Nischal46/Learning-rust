@@ -1,7 +1,9 @@
-pub fn init() {
-    let menu = ["Home", "settings", "profile", "about"];
+use std::iter::Sum;
 
-    let sorted_array = [23, 34, 56, 67, 78, 90];
+pub fn init() {
+    let mut menu = ["Home", "settings", "profile", "about"];
+
+    let mut sorted_array = [23, 34, 56, 67, 78, 90];
 
     println!("- - -");
     println!("User in bound");
@@ -37,4 +39,21 @@ pub fn init() {
     println!("- - -");
     println!("binary search method [built-in]");
     println!("{:?}", sorted_array.binary_search(&23));
+
+    println!("- - -");
+    menu.swap(1, 3);
+    println!("After swapping of the element in array: {:?}", menu);
+
+    println!("- - -");
+    sorted_array.rotate_left(2);
+    println!("After left rotating element in array: {:?}", sorted_array);
+
+    println!("- - -");
+    menu.rotate_right(2);
+    println!("After right rotating of the array: {:?}", menu);
+
+    //calculating of the statiscics
+    let sum = sorted_array.iter().sum::<i32>();
+
+    println!("Sum of whole total array: {}", sum);
 }
